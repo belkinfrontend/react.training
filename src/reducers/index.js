@@ -1,9 +1,7 @@
-import { combineReducers } from 'redux';
+export const initialState = {
+	note: 'Unknown Note',
+};
 
-// import moviesReducer from './moviesReducer';
-// import showsReducer from './showsReducer';
-
-export default combineReducers({
-	// movies: moviesReducer,
-	// shows: showsReducer,
-});
+export function rootReducer(state = initialState) {
+	return state;
+}

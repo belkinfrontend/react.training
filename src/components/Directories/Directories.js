@@ -23,7 +23,7 @@ const styles = theme => ({
 	},
 });
 
-class Folders extends React.Component {
+class Directories extends React.Component {
 	state = {
 		open: false,
 	};
@@ -38,7 +38,7 @@ class Folders extends React.Component {
 		return (
 			<List
 				component="nav"
-				subheader={<ListSubheader component="div">Folders</ListSubheader>}
+				subheader={<ListSubheader component="div">Directories</ListSubheader>}
 				className={classes.root}
 			>
 				<ListItem button component={Link} to="/">
@@ -82,8 +82,8 @@ class Folders extends React.Component {
 	}
 }
 
-Folders.propTypes = {
+Directories.propTypes = {
 	classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Folders);
+export default withStyles(styles)(Directories);

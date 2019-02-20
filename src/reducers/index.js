@@ -1,7 +1,8 @@
-export const initialState = {
-	note: 'Unknown Note',
-};
+import { combineReducers } from 'redux';
+import { noticesReducer } from './noticesReducer';
+import { directoriesReducer } from './directoriesReducer';
 
-export function rootReducer(state = initialState) {
-	return state;
-}
+export const rootReducer = combineReducers({
+	directories: directoriesReducer,
+	notices: noticesReducer,
+});

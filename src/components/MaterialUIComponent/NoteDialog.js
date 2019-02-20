@@ -10,7 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
-import AddIcon from '@material-ui/icons/Add';
+import NoteAdd from '@material-ui/icons/NoteAdd';
 import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
 import TextField from '@material-ui/core/TextField';
@@ -72,7 +72,7 @@ class NoteDialog extends React.Component {
 						onClick={this.handleClickOpen}
 						className={classes.absolute}
 					>
-						<AddIcon />
+						<NoteAdd />
 					</Fab>
 				</Tooltip>
 				<Dialog

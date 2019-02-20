@@ -5,14 +5,20 @@ import Description from '@material-ui/icons/Description';
 import { apiGetDirectories } from '../services/directories.services';
 import { apiGetNotices } from '../services/notices.services';
 
-export const CHANGE_NAME = 'CHANGE_NAME';
+// export const CHANGE_NAME = 'CHANGE_NAME';
 
-class Corporative extends Component {
+class TestComponent extends Component {
 	render() {
+		const { notices } = this.props.notices;
 		return (
 			<div>
 				<h2>Corporative component</h2>
-				<p>{this.props.note}</p>
+				<h4>======= from store!!!</h4>
+				<p>directoryId: {notices.directoryId}</p>
+				<p>title: {notices.title}</p>
+				<p>id: {notices.id}</p>
+				<p>description: {notices.description}</p>
+				<h4>=======</h4>
 				<div>
 					<Description />
 					<p>Future birthdays</p>
@@ -29,8 +35,9 @@ const mapStateToProps = store => {
 	console.log(store);
 
 	return {
-		user: store.user,
+		directories: store.directories,
+		notices: store.notices,
 	};
 };
 
-export default connect(mapStateToProps)(Corporative);
+export default connect(mapStateToProps)(TestComponent);

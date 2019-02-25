@@ -1,0 +1,5 @@
+export const GET_NOTICES = 'GET_NOTICES';
+export const NEW_NOTICE = 'NEW_NOTICE';
+
+export const GET_DIRECTORIES = 'GET_DIRECTORIES';
+export const NEW_DIRECTORY = 'NEW_DIRECTORY';

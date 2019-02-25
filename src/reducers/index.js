@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import { noticesReducer } from './noticesReducer';
-import { directoriesReducer } from './directoriesReducer';
+import { noticeReducer } from './noticeReducer';
+import { directoryReducer } from './directoryReducer';
 
-export const rootReducer = combineReducers({
-	directories: directoriesReducer,
-	notices: noticesReducer,
+export default combineReducers({
+	notices: noticeReducer,
+	directories: directoryReducer,
 });

@@ -30,6 +30,11 @@ class AddDirectory extends Component {
 		};
 		console.log(this.props);
 		this.props.addNewDirectory(directory);
+		this.clearForm();
+	}
+
+	clearForm() {
+		this.setState({ id: '', parentId: '', name: '' });
 	}
 
 	render() {

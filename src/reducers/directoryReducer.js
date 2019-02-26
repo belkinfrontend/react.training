@@ -1,18 +1,24 @@
-import { GET_DIRECTORIES, NEW_DIRECTORY } from '../actions/types';
+import {
+	DIRECTORIES_FETCH_STARTED,
+	DIRECTORIES_FETCH_SUCCEED,
+	ADD_NEW_DIRECTORY,
+} from '../actions/types';
 
 const initialState = {
 	items: [],
 	item: {},
+	isLoading: false,
 };
 
 export function directoryReducer(state = initialState, action) {
 	switch (action.type) {
-		case GET_DIRECTORIES:
-			console.log(action.payload);
-			return { ...state, items: action.payload };
+		case DIRECTORIES_FETCH_STARTED:
+			return { ...state, isLoading: true };
 
-		case NEW_DIRECTORY:
-			console.log(action.payload);
+		case DIRECTORIES_FETCH_SUCCEED:
+			return { ...state, items: action.payload, isLoading: false };
+
+		case ADD_NEW_DIRECTORY:
 			return { ...state, item: action.payload };
 
 		default:

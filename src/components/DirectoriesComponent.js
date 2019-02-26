@@ -4,16 +4,22 @@ import { Link } from 'react-router-dom';
 
 export class DirectoriesComponent extends Component {
 	render() {
+		console.log(this.props);
 		const directoryItem = this.props.directories.map(({ id, name }) => (
 			<div key={id} className="directoryItem">
-				{/* <p button component={Link} to={`/directory/${id}`}> */}
 				<Link to={`/directory/${id}`}>{name}</Link>
 			</div>
 		));
 		return (
 			<div className="directoriesList">
 				<h1>Directories</h1>
-				<div>{directoryItem}</div>
+				{this.props.isLoading ? (
+					<div className="cssload-container">
+						<div className="cssload-whirlpool" />
+					</div>
+				) : (
+					<div>{directoryItem}</div>
+				)}
 			</div>
 		);
 	}
@@ -22,6 +28,7 @@ export class DirectoriesComponent extends Component {
 DirectoriesComponent.propTypes = {
 	directories: PropTypes.array.isRequired,
 	directory: PropTypes.object,
+	isLoading: PropTypes.bool.isRequired,
 };
 
 export default DirectoriesComponent;

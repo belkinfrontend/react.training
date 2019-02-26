@@ -11,14 +11,18 @@ class Directories extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		// console.log(nextProps);
 		if (nextProps.directory) {
 			this.props.directories.push(nextProps.directory);
 		}
 	}
 
 	render() {
-		return <DirectoriesComponent directories={this.props.directories} />;
+		return (
+			<DirectoriesComponent
+				directories={this.props.directories}
+				isLoading={this.props.isLoading}
+			/>
+		);
 	}
 }
 
@@ -26,11 +30,13 @@ Directories.propTypes = {
 	getDirectories: PropTypes.func.isRequired,
 	directories: PropTypes.array.isRequired,
 	directory: PropTypes.object.isRequired,
+	isLoading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
 	directories: state.directories.items,
 	directory: state.directories.item,
+	isLoading: state.directories.isLoading,
 });
 
 export default connect(

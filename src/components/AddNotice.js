@@ -29,8 +29,12 @@ class AddNotice extends Component {
 			title: this.state.title,
 			description: this.state.description,
 		};
-		console.log(this.props);
 		this.props.addNewNotice(notice);
+		this.clearForm();
+	}
+
+	clearForm() {
+		this.setState({ id: '', title: '', description: '' });
 	}
 
 	render() {

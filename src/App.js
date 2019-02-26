@@ -9,14 +9,16 @@ import AddNotice from './components/AddNotice';
 import Directories from './containers/Directories';
 import AddDirectory from './components/AddDirectory';
 
+// import getCurrentDirectoryId from './containers/Notices';
+
 import store from './store';
 
-// =============  TEST COMPONENT
-const CommonDirectoryElement = ({ match }) => {
-	console.log(match.params);
-	return <span>{match.params.id}</span>;
-};
-// =============  TEST COMPONENT
+// // ----------------  TEST COMPONENT
+// const CommonDirectoryElement = ({ match }) => {
+// 	console.log(match.params);
+// 	return <span>{match.params.id}</span>;
+// };
+// // ----------------  TEST COMPONENT
 
 class App extends Component {
 	render() {
@@ -33,11 +35,10 @@ class App extends Component {
 							<section>
 								<AddDirectory />
 								<Directories />
-								<Route exact path="/directory/:id" component={CommonDirectoryElement} />
 							</section>
 
 							<section>
-								<Notices />
+								<Route exact path="/directory/1" component={Notices} />
 								<AddNotice />
 							</section>
 						</main>

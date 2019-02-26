@@ -3,13 +3,27 @@ import {
 	// useApiPostNotice,
 } from '../services/notices.service';
 
-import { GET_NOTICES, NEW_NOTICE } from '../actions/types';
+import {
+	ADD_NEW_NOTICE,
+	NOTICES_FETCH_STARTED,
+	NOTICES_FETCH_SUCCEED,
+	NOTICES_FETCH_FAILED,
+} from '../actions/types';
 
 export function getNotices() {
 	return dispatch => {
-		useApiGetNotices().then(res => {
-			dispatch({ type: GET_NOTICES, payload: res });
-		});
+		dispatch({ type: NOTICES_FETCH_STARTED });
+		useApiGetNotices()
+			.then(result => {
+				dispatch({ type: NOTICES_FETCH_SUCCEED, payload: result });
+			})
+			.catch(error => {
+				dispatch({
+					type: NOTICES_FETCH_FAILED,
+					error: true,
+					payload: error.message,
+				});
+			});
 	};
 }
 
@@ -24,7 +38,7 @@ export const addNewNotice = noticeData => dispatch => {
 		.then(res => res.json())
 		.then(notice =>
 			dispatch({
-				type: NEW_NOTICE,
+				type: ADD_NEW_NOTICE,
 				payload: notice,
 			})
 		);

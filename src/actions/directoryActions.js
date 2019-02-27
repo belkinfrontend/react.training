@@ -1,4 +1,7 @@
-import { useApiGetDirectories } from '../services/directories.service';
+import {
+	useApiGetDirectories,
+	useApiPostDirectory,
+} from '../services/directories.service';
 
 import {
 	ADD_NEW_DIRECTORY,
@@ -27,19 +30,13 @@ export function getDirectories() {
 	};
 }
 
-export const addNewDirectory = directoryData => dispatch => {
-	fetch(`http://localhost:3000/directories`, {
-		method: 'POST',
-		headers: {
-			'content-type': 'application/json',
-		},
-		body: JSON.stringify(directoryData),
-	})
-		.then(res => res.json())
-		.then(directory =>
+export function addNewDirectory(directoryData) {
+	return dispatch => {
+		useApiPostDirectory(directoryData).then(directory =>
 			dispatch({
 				type: ADD_NEW_DIRECTORY,
 				payload: directory,
 			})
 		);
-};
+	};
+}

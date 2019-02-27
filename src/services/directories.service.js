@@ -6,15 +6,12 @@ export const useApiGetDirectories = () => {
 	return axios.get(`${SERVER_URL}/directories`).then(res => res.data);
 };
 
-// export const useApiPostNotice = notice => {
-// 	fetch(`http://localhost:3000/notices`, {
-// 		method: 'POST',
-// 		headers: {
-// 			'content-type': 'application/json',
-// 		},
-// 		body: JSON.stringify(notice),
-// 	})
-// 		.then(res => res.json())
-// 		.then(data => console.log(data));
-// 	return axios.post(`${SERVER_URL}/notices`).then(res => res.data);
-// };
+export const useApiPostDirectory = directoryData => {
+	return fetch(`http://localhost:3000/directories`, {
+		method: 'POST',
+		headers: {
+			'content-type': 'application/json',
+		},
+		body: JSON.stringify(directoryData),
+	}).then(res => res.json());
+};

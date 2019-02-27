@@ -10,7 +10,7 @@ import {
 	NOTICES_FETCH_FAILED,
 } from '../actions/types';
 
-export function getNotices() {
+export function getAllNotices() {
 	return dispatch => {
 		dispatch({ type: NOTICES_FETCH_STARTED });
 		useApiGetNotices()
@@ -28,14 +28,16 @@ export function getNotices() {
 }
 
 export const addNewNotice = noticeData => dispatch => {
-	fetch(`http://localhost:3000/notices`, {
+	return fetch(`http://localhost:3000/notices`, {
 		method: 'POST',
 		headers: {
 			'content-type': 'application/json',
 		},
 		body: JSON.stringify(noticeData),
 	})
-		.then(res => res.json())
+		.then(res => {
+			return res.json();
+		})
 		.then(notice =>
 			dispatch({
 				type: ADD_NEW_NOTICE,

@@ -23,9 +23,11 @@ class AddNotice extends Component {
 	onSubmit(e) {
 		e.preventDefault();
 
+		console.log(this.props);
+
 		const notice = {
 			id: this.state.id,
-			directoryId: 1,
+			directoryId: this.props.directoryID,
 			title: this.state.title,
 			description: this.state.description,
 		};
@@ -42,13 +44,6 @@ class AddNotice extends Component {
 			<div>
 				<h1>Add Notices</h1>
 				<form onSubmit={this.onSubmit}>
-					{/* <input
-						type="number"
-						value={this.state.id}
-						name="id"
-						placeholder="id"
-						onChange={this.onChange}
-					/> */}
 					<input
 						type="text"
 						value={this.state.title}

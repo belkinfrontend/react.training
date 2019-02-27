@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import './App.scss';
 import Notices from './containers/Notices';
-import AddNotice from './components/AddNotice';
+// import AddNotice from './components/AddNotice';
 
 import Directories from './containers/Directories';
 import AddDirectory from './components/AddDirectory';
@@ -38,8 +38,7 @@ class App extends Component {
 							</section>
 
 							<section>
-								<Route exact path="/directory/1" component={Notices} />
-								<AddNotice />
+								<Route exact path="/directory/:id" component={Notices} />
 							</section>
 						</main>
 					</div>

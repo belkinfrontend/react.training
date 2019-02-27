@@ -7,19 +7,19 @@ import {
 const initialState = {
 	items: [],
 	item: {},
-	loading: false,
+	isLoading: false,
 };
 
 export function noticeReducer(state = initialState, action) {
 	switch (action.type) {
 		case NOTICES_FETCH_STARTED:
-			return { ...state, loading: true };
+			return { ...state, isLoading: true };
 
 		case NOTICES_FETCH_SUCCEED:
-			return { ...state, items: action.payload };
+			return { ...state, items: action.payload, isLoading: false };
 
 		case ADD_NEW_NOTICE:
-			return { ...state, item: action.payload };
+			return { ...state, items: [...state.items, action.payload] };
 
 		default:
 			return state;

@@ -15,3 +15,8 @@ export const useApiPostDirectory = directoryData => {
 		body: JSON.stringify(directoryData),
 	}).then(res => res.json());
 };
+
+//  Delete Directory
+export const useApiDeleteDirectory = id => {
+	return axios.delete(`${SERVER_URL}/directories/${id}`).then(res => res.data);
+};

@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 
 export class NoticesComponent extends Component {
 	render() {
-		// console.log(this.props);
+		console.log(this.props.notices.length); //TODO if(this.props.notices.length > 0) {show NO NOTICES !!!!}
+
 		const noticeItem = this.props.notices.map(notice => (
 			<div key={notice.id} className="noticeItem">
 				<img src="https://bit.ly/2EvLYBO" alt="notice" />
 				<p>{notice.title}</p>
+				<button onClick={() => this.props.deleteNotice(notice.id)}>Delete</button>
 			</div>
 		));
 		return (

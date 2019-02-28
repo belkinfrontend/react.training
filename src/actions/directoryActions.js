@@ -1,16 +1,19 @@
 import {
 	useApiGetDirectories,
 	useApiPostDirectory,
+	useApiDeleteDirectory,
 } from '../services/directories.service';
 
 import {
-	ADD_NEW_DIRECTORY,
 	DIRECTORIES_FETCH_STARTED,
 	DIRECTORIES_FETCH_SUCCEED,
 	DIRECTORIES_FETCH_FAILED,
 	ADD_NEW_DIRECTORY_STARTED,
 	ADD_NEW_DIRECTORY_SUCCEED,
 	ADD_NEW_DIRECTORY_FAILED,
+	DELETE_DIRECTORY_STARTED,
+	DELETE_DIRECTORY_SUCCEED,
+	DELETE_DIRECTORY_FAILED,
 } from './types';
 
 export function getDirectories() {
@@ -30,13 +33,46 @@ export function getDirectories() {
 	};
 }
 
+//================ addNewDirectory
+
 export function addNewDirectory(directoryData) {
 	return dispatch => {
-		useApiPostDirectory(directoryData).then(directory =>
-			dispatch({
-				type: ADD_NEW_DIRECTORY,
-				payload: directory,
-			})
-		);
+		dispatch({ type: ADD_NEW_DIRECTORY_STARTED });
+		useApiPostDirectory(directoryData)
+			.then(directory =>
+				dispatch({
+					type: ADD_NEW_DIRECTORY_SUCCEED,
+					payload: directory,
+				})
+			)
+			.catch(error => {
+				dispatch({
+					type: ADD_NEW_DIRECTORY_FAILED,
+					error: true,
+					payload: error.message,
+				});
+			});
+	};
+}
+
+//================ deleteDirectory
+
+export function deleteDirectory(id) {
+	return dispatch => {
+		dispatch({ type: DELETE_DIRECTORY_STARTED });
+		useApiDeleteDirectory(id)
+			.then(() =>
+				dispatch({
+					type: DELETE_DIRECTORY_SUCCEED,
+					payload: id,
+				})
+			)
+			.catch(error => {
+				dispatch({
+					type: DELETE_DIRECTORY_FAILED,
+					error: true,
+					payload: error.message,
+				});
+			});
 	};
 }

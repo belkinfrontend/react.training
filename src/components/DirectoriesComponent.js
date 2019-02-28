@@ -8,6 +8,14 @@ export class DirectoriesComponent extends Component {
 		const directoryItem = this.props.directories.map(({ id, name }) => (
 			<div key={id} className="directoryItem">
 				<Link to={`/directory/${id}`}>{name}</Link>
+				{id !== 1 ? (
+					<>
+						{/* <button onClick={this.props.deleteDirectory}>Delete</button> */}
+						<button onClick={() => this.props.deleteDirectory(id)}>Delete</button>
+					</>
+				) : (
+					<></>
+				)}
 			</div>
 		));
 		return (
@@ -29,6 +37,7 @@ DirectoriesComponent.propTypes = {
 	directories: PropTypes.array.isRequired,
 	directory: PropTypes.object,
 	isLoading: PropTypes.bool.isRequired,
+	deleteDirectory: PropTypes.func,
 };
 
 export default DirectoriesComponent;

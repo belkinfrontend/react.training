@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { addNewDirectory } from '../actions/directoryActions';
-
-class AddDirectory extends Component {
+class AddDirectoryComponent extends Component {
 	constructor(props) {
 		super();
 		this.state = {
-			id: '',
-			parentId: '',
+			id: null,
+			parentId: null,
 			name: '',
 		};
 		this.onChange = this.onChange.bind(this);
@@ -26,7 +23,7 @@ class AddDirectory extends Component {
 		const directory = {
 			id: this.state.id,
 			name: this.state.name,
-			parentId: 1,
+			parentId: 1, // ===== CHANGE IT LATER
 		};
 		console.log(this.props);
 		this.props.addNewDirectory(directory);
@@ -34,7 +31,7 @@ class AddDirectory extends Component {
 	}
 
 	clearForm() {
-		this.setState({ id: '', parentId: '', name: '' });
+		this.setState({ id: null, parentId: null, name: '' });
 	}
 
 	render() {
@@ -57,12 +54,9 @@ class AddDirectory extends Component {
 	}
 }
 
-AddDirectory.propTypes = {
-	addNewDirectory: PropTypes.func.isRequired,
+AddDirectoryComponent.propTypes = {
+	addNewDirectory: PropTypes.func,
 	directory: PropTypes.object,
 };
 
-export default connect(
-	null,
-	{ addNewDirectory }
-)(AddDirectory);
+export default AddDirectoryComponent;

@@ -18,3 +18,8 @@ export const useApiGetNotices = () => {
 // 		.then(data => console.log(data));
 // 	return axios.post(`${SERVER_URL}/notices`).then(res => res.data);
 // };
+
+//  Delete Directory
+export const useApiDeleteNotice = id => {
+	return axios.delete(`${SERVER_URL}/notices/${id}`).then(res => res.data);
+};

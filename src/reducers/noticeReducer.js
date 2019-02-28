@@ -2,6 +2,8 @@ import {
 	NOTICES_FETCH_STARTED,
 	NOTICES_FETCH_SUCCEED,
 	ADD_NEW_NOTICE,
+	DELETE_NOTICE_STARTED,
+	DELETE_NOTICE_SUCCEED,
 } from '../actions/types';
 
 const initialState = {
@@ -20,6 +22,16 @@ export function noticeReducer(state = initialState, action) {
 
 		case ADD_NEW_NOTICE:
 			return { ...state, items: [...state.items, action.payload] };
+
+		case DELETE_NOTICE_STARTED:
+			return { ...state, isLoading: true };
+
+		case DELETE_NOTICE_SUCCEED:
+			return {
+				...state,
+				items: state.items.filter(item => item.id !== action.payload),
+				isLoading: false,
+			};
 
 		default:
 			return state;

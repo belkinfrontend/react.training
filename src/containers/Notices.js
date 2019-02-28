@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getAllNotices } from '../actions/noticeActions';
-import { NoticesComponent } from '../components/NoticesComponent';
-import AddNotice from '../components/AddNotice';
+import NoticesComponent from '../components/NoticesComponent';
+import AddNoticeComponent from '../components/AddNoticeComponent';
+
+import {
+	getAllNotices,
+	addNewNotice,
+	deleteNotice,
+} from '../actions/noticeActions';
 
 class Notices extends Component {
 	constructor(props) {
 		super(props);
 		this.props.getAllNotices();
-	}
-
-	componentWillReceiveProps(nextProps) {
-		// console.log(nextProps);
-		// if (nextProps.notice) {
-		// 	this.props.notices.push(nextProps.notice);
-		// }
 	}
 
 	render() {
@@ -29,14 +27,18 @@ class Notices extends Component {
 		const actualNotices = notices.filter(({ directoryId }) => directoryId === id);
 
 		return (
-			<div>
+			<section>
 				<span>{id}</span>
 				<NoticesComponent
 					notices={actualNotices}
 					isLoading={this.props.isLoading}
+					deleteNotice={this.props.deleteNotice}
 				/>
-				<AddNotice directoryID={id} />
-			</div>
+				<AddNoticeComponent
+					directoryID={id}
+					addNewNotice={this.props.addNewNotice}
+				/>
+			</section>
 		);
 	}
 }
@@ -46,6 +48,7 @@ Notices.propTypes = {
 	notices: PropTypes.array.isRequired,
 	notice: PropTypes.object.isRequired,
 	isLoading: PropTypes.bool.isRequired,
+	deleteNotice: PropTypes.func,
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -56,5 +59,5 @@ const mapStateToProps = (state, ownProps) => ({
 
 export default connect(
 	mapStateToProps,
-	{ getAllNotices }
+	{ getAllNotices, addNewNotice, deleteNotice }
 )(Notices);

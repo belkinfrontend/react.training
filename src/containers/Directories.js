@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getDirectories } from '../actions/directoryActions';
-import { DirectoriesComponent } from '../components/DirectoriesComponent';
+import {
+	getDirectories,
+	addNewDirectory,
+	deleteDirectory,
+} from '../actions/directoryActions';
+
+import AddDirectoryComponent from '../components/AddDirectoryComponent';
+import DirectoriesComponent from '../components/DirectoriesComponent';
 
 class Directories extends Component {
 	constructor(props) {
@@ -10,18 +16,20 @@ class Directories extends Component {
 		this.props.getDirectories();
 	}
 
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.directory) {
-			this.props.directories.push(nextProps.directory);
-		}
-	}
-
 	render() {
 		return (
-			<DirectoriesComponent
-				directories={this.props.directories}
-				isLoading={this.props.isLoading}
-			/>
+			<section>
+				<AddDirectoryComponent
+					isLoading={this.props.isLoading}
+					addNewDirectory={this.props.addNewDirectory}
+				/>
+				<DirectoriesComponent
+					directory={this.props.directory}
+					directories={this.props.directories}
+					isLoading={this.props.isLoading}
+					deleteDirectory={this.props.deleteDirectory}
+				/>
+			</section>
 		);
 	}
 }
@@ -31,6 +39,7 @@ Directories.propTypes = {
 	directories: PropTypes.array.isRequired,
 	directory: PropTypes.object.isRequired,
 	isLoading: PropTypes.bool.isRequired,
+	deleteDirectory: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -41,5 +50,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ getDirectories }
+	{ getDirectories, addNewDirectory, deleteDirectory }
 )(Directories);

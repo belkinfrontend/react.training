@@ -3,13 +3,9 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import './App.scss';
+import ButtonAppBar from './components/ButtonAppBar';
 import Notices from './containers/Notices';
-// import AddNotice from './components/AddNotice';
-
 import Directories from './containers/Directories';
-import AddDirectory from './components/AddDirectory';
-
-// import getCurrentDirectoryId from './containers/Notices';
 
 import store from './store';
 
@@ -26,20 +22,10 @@ class App extends Component {
 			<Provider store={store}>
 				<Router>
 					<div className="App">
-						<header className="App-header">
-							<p>
-								<code>Notice App</code>
-							</p>
-						</header>
+						<ButtonAppBar />
 						<main>
-							<section>
-								<AddDirectory />
-								<Directories />
-							</section>
-
-							<section>
-								<Route exact path="/directory/:id" component={Notices} />
-							</section>
+							<Directories />
+							<Route exact path="/directory/:id" component={Notices} />
 						</main>
 					</div>
 				</Router>

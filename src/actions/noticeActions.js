@@ -1,5 +1,6 @@
 import {
 	useApiGetNotices,
+	useApiDeleteNotice,
 	// useApiPostNotice,
 } from '../services/notices.service';
 
@@ -8,6 +9,9 @@ import {
 	NOTICES_FETCH_STARTED,
 	NOTICES_FETCH_SUCCEED,
 	NOTICES_FETCH_FAILED,
+	DELETE_NOTICE_STARTED,
+	DELETE_NOTICE_SUCCEED,
+	DELETE_NOTICE_FAILED,
 } from '../actions/types';
 
 export function getAllNotices() {
@@ -45,3 +49,23 @@ export const addNewNotice = noticeData => dispatch => {
 			})
 		);
 };
+
+export function deleteNotice(id) {
+	return dispatch => {
+		dispatch({ type: DELETE_NOTICE_STARTED });
+		useApiDeleteNotice(id)
+			.then(() =>
+				dispatch({
+					type: DELETE_NOTICE_SUCCEED,
+					payload: id,
+				})
+			)
+			.catch(error => {
+				dispatch({
+					type: DELETE_NOTICE_FAILED,
+					error: true,
+					payload: error.message,
+				});
+			});
+	};
+}

@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { addNewNotice } from '../actions/noticeActions';
-
-class AddNotice extends Component {
+class AddNoticeComponent extends Component {
 	constructor(props) {
 		super();
 		this.state = {
@@ -65,12 +62,9 @@ class AddNotice extends Component {
 	}
 }
 
-AddNotice.propTypes = {
+AddNoticeComponent.propTypes = {
 	addNewNotice: PropTypes.func.isRequired,
 	notice: PropTypes.object,
 };
 
-export default connect(
-	null,
-	{ addNewNotice }
-)(AddNotice);
+export default AddNoticeComponent;

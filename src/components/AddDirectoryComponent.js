@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
 class AddDirectoryComponent extends Component {
 	constructor(props) {
 		super();
@@ -39,15 +42,19 @@ class AddDirectoryComponent extends Component {
 			<div>
 				<h1>Add Directories</h1>
 				<form onSubmit={this.onSubmit}>
-					<input
-						type="text"
-						value={this.state.name}
+					<TextField
+						id="outlined-name"
+						label="Name"
 						name="name"
-						placeholder="name"
+						value={this.state.name}
 						onChange={this.onChange}
+						margin="normal"
+						variant="outlined"
 						required
 					/>
-					<button type="submit">Submit</button>
+					<Button type="submit" variant="contained" size="small" color="primary">
+						Submit
+					</Button>
 				</form>
 			</div>
 		);

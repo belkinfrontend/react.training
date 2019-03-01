@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import NoticesComponent from '../components/NoticesComponent';
-import AddNoticeComponent from '../components/AddNoticeComponent';
+import AddNoticeComponent from './AddNoticeContainer';
 
 import {
 	getAllNotices,
 	addNewNotice,
 	deleteNotice,
+	editNotice,
 } from '../actions/noticeActions';
 
 class Notices extends Component {
@@ -28,11 +29,11 @@ class Notices extends Component {
 
 		return (
 			<section>
-				<span>{id}</span>
 				<NoticesComponent
 					notices={actualNotices}
 					isLoading={this.props.isLoading}
 					deleteNotice={this.props.deleteNotice}
+					editNotice={this.props.editNotice}
 				/>
 				<AddNoticeComponent
 					directoryID={id}
@@ -59,5 +60,5 @@ const mapStateToProps = (state, ownProps) => ({
 
 export default connect(
 	mapStateToProps,
-	{ getAllNotices, addNewNotice, deleteNotice }
+	{ getAllNotices, addNewNotice, deleteNotice, editNotice }
 )(Notices);

@@ -13,22 +13,18 @@ code {
     monospace;
 }
 
-.noticeItem {
-  border: 2px dotted #eee;
+a {
+	text-decoration: none;
 }
 
 input,
 textarea {
   width: 90%;
-  height: 40px;
   margin-bottom: 10px;
   padding-left: 10px;
   border: none;
   border: 1px solid #eee;
   border-radius: 10px;
-}
-textarea {
-  height: 100px;
 }
 .directoriesList {
   text-align: left;
@@ -37,7 +33,12 @@ textarea {
 .noticesList {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
+  justify-content: center;
+}
+
+.noticeItem {
+	max-width: 200px;
+	margin: 10px 10px 0 0;
 }
 
 

@@ -1,27 +1,96 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import Icon from '@material-ui/core/Icon';
+import Button from '@material-ui/core/Button';
+
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+
+const Notice = ({
+	data: { id, title, description },
+	deleteNotice,
+	editNotice,
+}) => {
+	const deleteNoticeFn = event => {
+		const noticeid = event.currentTarget.dataset.noticeid;
+
+		deleteNotice(parseInt(noticeid));
+	};
+
+	const editNoticeFn = event => {
+		const noticeid = event.currentTarget.dataset.noticeid;
+
+		editNotice(parseInt(noticeid));
+	};
+
+	return (
+		<Card className="noticeItem">
+			<CardActionArea>
+				<Icon style={{ fontSize: 90 }} color="action">
+					note
+				</Icon>
+				<CardContent>
+					<Typography gutterBottom variant="h5" component="h2">
+						{title}
+					</Typography>
+					<Typography component="p">{description}</Typography>
+				</CardContent>
+			</CardActionArea>
+			<CardActions>
+				<Button
+					onClick={editNoticeFn}
+					data-noticeid={id}
+					size="small"
+					color="primary"
+				>
+					Edit
+				</Button>
+				<Button
+					onClick={deleteNoticeFn}
+					data-noticeid={id}
+					variant="contained"
+					size="small"
+					color="secondary"
+				>
+					Delete
+				</Button>
+			</CardActions>
+		</Card>
+	);
+};
+
 export class NoticesComponent extends Component {
 	render() {
-		console.log(this.props.notices.length); //TODO if(this.props.notices.length > 0) {show NO NOTICES !!!!}
+		const { notices, deleteNotice, editNotice, isLoading } = this.props;
 
-		const noticeItem = this.props.notices.map(notice => (
-			<div key={notice.id} className="noticeItem">
-				<img src="https://bit.ly/2EvLYBO" alt="notice" />
-				<p>{notice.title}</p>
-				<button onClick={() => this.props.deleteNotice(notice.id)}>Delete</button>
-			</div>
-		));
+		if (isLoading) {
+			return (
+				<div className="cssload-container">
+					<div className="cssload-whirlpool" />
+				</div>
+			);
+		}
+
+		if (notices.length < 1) {
+			return <p>NO NOTICES!</p>;
+		}
+
 		return (
 			<div>
-				<h1>Notices</h1>
-				{this.props.isLoading ? (
-					<div className="cssload-container">
-						<div className="cssload-whirlpool" />
-					</div>
-				) : (
-					<div className="noticesList">{noticeItem}</div>
-				)}
+				<div className="noticesList">
+					{notices.map(notice => (
+						<Notice
+							data={notice}
+							key={notice.id}
+							deleteNotice={deleteNotice}
+							editNotice={editNotice}
+						/>
+					))}
+				</div>
 			</div>
 		);
 	}

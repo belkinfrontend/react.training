@@ -30,7 +30,7 @@ const Notice = ({
 	return (
 		<Card className="noticeItem">
 			<CardActionArea>
-				<Icon style={{ fontSize: 90 }} color="action">
+				<Icon style={{ fontSize: 100 }} color="action">
 					note
 				</Icon>
 				<CardContent>

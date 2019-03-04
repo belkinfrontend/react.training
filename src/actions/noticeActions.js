@@ -81,7 +81,7 @@ export function editNotice(id) {
 			type: EDIT_NOTICE_STARTED,
 			payload: id,
 		});
-		// useApiDeleteNotice(id)
+		// useApiEditNotice(id)
 		// 	.then(() =>
 		// 		dispatch({
 		// 			type: EDIT_NOTICE_SUCCEED,

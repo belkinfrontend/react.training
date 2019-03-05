@@ -14,51 +14,73 @@ import IconButton from '@material-ui/core/IconButton';
 // import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import DeleteIcon from '@material-ui/icons/Delete';
 
+/* <Fragment key={id}>
+	<Link to={`/directory/${id}`}>
+		<ListItem button onClick={this.handleClick}>
+			<ListItemText primary={name} />
+			{this.state.open ? <ExpandLess /> : <ExpandMore />}
+		</ListItem>
+
+		<Collapse in={this.state.open} timeout="auto" unmountOnExit>
+			<List disablePadding>
+				{id === 1 ? null : (
+					<ListItem button>
+						<ListItemText inset primary={name} />
+
+						{this.state.open ? <ExpandLess /> : <ExpandMore />}
+
+						<IconButton
+							aria-label="Delete"
+							onClick={() => this.props.deleteDirectory(id)}
+						>
+							<DeleteIcon />
+						</IconButton>
+					</ListItem>
+				)}
+			</List>
+		</Collapse>
+	</Link>
+</Fragment> */
+
 export class DirectoriesComponent extends Component {
 	state = {
-		open: false,
+		open: true,
 	};
 
 	style = {
-		marginLeft: '14px',
+		marginLeft: '14px !important',
 	};
 
 	handleClick = () => {
 		this.setState(state => ({ open: !state.open }));
 	};
 
+	getDirectoriesList = directories =>
+		directories.map(({ name, id, children }) => {
+			return (
+				<li key={id}>
+					<Link to={`/directory/${id}`}>
+						<ListItem button onClick={this.handleClick}>
+							<ListItemText inset primary={name} />
+							{id === 1 ? null : (
+								<IconButton
+									aria-label="Delete"
+									onClick={() => this.props.deleteDirectory(id)}
+								>
+									<DeleteIcon />
+								</IconButton>
+							)}
+						</ListItem>
+					</Link>
+					{children ? <ul>{this.getDirectoriesList(children)}</ul> : null}
+				</li>
+			);
+		});
+
 	render() {
 		console.log(this.props);
-		const directoryItem = this.props.directories.map(({ id, name }) => (
-			<Fragment key={id}>
-				<Link to={`/directory/${id}`}>
-					{id === 1 ? (
-						<ListItem button onClick={this.handleClick}>
-							<ListItemText primary={name} />
-							{this.state.open ? <ExpandLess /> : <ExpandMore />}
-						</ListItem>
-					) : null}
-					<Collapse in={this.state.open} timeout="auto" unmountOnExit>
-						<List disablePadding>
-							{id === 1 ? null : (
-								<ListItem onClick={this.handleClick} button>
-									<ListItemText inset primary={name} />
+		const { directories } = this.props;
 
-									{this.state.open ? <ExpandLess /> : <ExpandMore />}
-
-									<IconButton
-										aria-label="Delete"
-										onClick={() => this.props.deleteDirectory(id)}
-									>
-										<DeleteIcon />
-									</IconButton>
-								</ListItem>
-							)}
-						</List>
-					</Collapse>
-				</Link>
-			</Fragment>
-		));
 		return (
 			<div className="directoriesList">
 				<h1>Directories</h1>
@@ -68,7 +90,7 @@ export class DirectoriesComponent extends Component {
 					</div>
 				) : (
 					<List className="directoryItem">
-						{directoryItem}
+						{this.getDirectoriesList(directories)}
 
 						{/* HARDCODE */}
 

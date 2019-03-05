@@ -1,8 +1,8 @@
 import {
 	useApiGetNotices,
 	useApiPostNotice,
-	// useApiDeleteNotice,
-	useApiEditNotice,
+	useApiDeleteNotice,
+	// useApiEditNotice,
 } from '../services/notices.service';
 
 import {
@@ -58,7 +58,7 @@ export const addNewNotice = noticeData => dispatch => {
 export function deleteNotice(id) {
 	return dispatch => {
 		dispatch({ type: DELETE_NOTICE_STARTED });
-		useApiEditNotice(id)
+		useApiDeleteNotice(id)
 			.then(() =>
 				dispatch({
 					type: DELETE_NOTICE_SUCCEED,

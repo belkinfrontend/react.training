@@ -22,14 +22,49 @@ class AddDirectoryComponent extends Component {
 
 	onSubmit(e) {
 		e.preventDefault();
+		console.log(this.props);
 
 		const directory = {
-			id: this.state.id,
+			id: parseInt(this.state.id),
 			name: this.state.name,
-			parentId: 1, // ===== CHANGE IT LATER
+			parentId: parseInt(this.props.directoryID), // ===== CHANGE IT LATER
 		};
-		console.log(this.props);
+
+		// const { directories } = this.props;
+		// function unflatten(directories) {
+		// 	let tree = [],
+		// 		mappedArr = {},
+		// 		arrElem,
+		// 		mappedElem;
+
+		// 	// First map the nodes of the array to an object -> create a hash table.
+		// 	for (let i = 0, length = directories.length; i < length; i++) {
+		// 		arrElem = directories[i];
+		// 		mappedArr[arrElem.id] = arrElem;
+		// 		mappedArr[arrElem.id]['children'] = [];
+		// 	}
+
+		// 	for (let id in mappedArr) {
+		// 		if (mappedArr.hasOwnProperty(id)) {
+		// 			mappedElem = mappedArr[id];
+		// 			// If the element is not at the root level, add it to its parent array of children.
+		// 			if (mappedElem.parentId) {
+		// 				mappedArr[mappedElem['parentId']]['children'].push(mappedElem);
+		// 			}
+		// 			// If the element is at the root level, add it to first level elements array.
+		// 			else {
+		// 				tree.push(mappedElem);
+		// 			}
+		// 		}
+		// 	}
+		// 	return tree;
+		// }
+
+		// let tree = unflatten(directories);
+		// console.log(tree);
+
 		this.props.addNewDirectory(directory);
+
 		this.clearForm();
 	}
 
@@ -50,6 +85,7 @@ class AddDirectoryComponent extends Component {
 						onChange={this.onChange}
 						margin="normal"
 						variant="outlined"
+						fullWidth
 						required
 					/>
 					<Button type="submit" variant="contained" size="small" color="primary">

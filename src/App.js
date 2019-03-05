@@ -24,7 +24,9 @@ class App extends Component {
 					<div className="App">
 						<ButtonAppBar />
 						<main>
-							<Directories />
+							{/* <Directories directoryID={match.params.id} /> */}
+							<Route exact path="/" component={Directories} />
+							<Route exact path="/directory/:id" component={Directories} />
 							<Route exact path="/directory/:id" component={Notices} />
 						</main>
 					</div>

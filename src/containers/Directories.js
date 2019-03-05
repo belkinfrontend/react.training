@@ -7,6 +7,8 @@ import {
 	deleteDirectory,
 } from '../actions/directoryActions';
 
+import { getUnflattenTree } from '../selectors';
+
 import AddDirectoryComponent from '../components/AddDirectoryComponent';
 import DirectoriesComponent from '../components/DirectoriesComponent';
 
@@ -17,11 +19,20 @@ class Directories extends Component {
 	}
 
 	render() {
+		console.log(this.props);
+
+		const {
+			match: {
+				params: { id },
+			},
+		} = this.props;
 		return (
 			<section>
 				<AddDirectoryComponent
 					isLoading={this.props.isLoading}
 					addNewDirectory={this.props.addNewDirectory}
+					directories={this.props.directories}
+					directoryID={id}
 				/>
 				<DirectoriesComponent
 					directory={this.props.directory}
@@ -43,7 +54,7 @@ Directories.propTypes = {
 };
 
 const mapStateToProps = state => ({
-	directories: state.directories.items,
+	directories: getUnflattenTree(state.directories.items),
 	directory: state.directories.item,
 	isLoading: state.directories.isLoading,
 });

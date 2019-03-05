@@ -17,6 +17,10 @@ a {
 	text-decoration: none;
 }
 
+ul ul, ol ul {
+	list-style-type: none;
+}
+
 input,
 textarea {
   width: 90%;

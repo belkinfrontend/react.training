@@ -38,6 +38,7 @@ class Notices extends Component {
 				<AddNoticeComponent
 					directoryID={id}
 					addNewNotice={this.props.addNewNotice}
+					currentItem={this.props.currentItem}
 				/>
 			</section>
 		);
@@ -52,10 +53,11 @@ Notices.propTypes = {
 	deleteNotice: PropTypes.func,
 };
 
-const mapStateToProps = (state, ownProps) => ({
-	notices: state.notices.items,
-	notice: state.notices.item,
-	isLoading: state.notices.isLoading,
+const mapStateToProps = ({ notices }) => ({
+	notices: notices.items,
+	notice: notices.item,
+	isLoading: notices.isLoading,
+	currentItem: notices.currentItem,
 });
 
 export default connect(

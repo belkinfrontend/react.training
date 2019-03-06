@@ -18,6 +18,7 @@ import {
 	EDIT_NOTICE_STARTED,
 	// EDIT_NOTICE_SUCCEED,
 	// EDIT_NOTICE_FAILED,
+	SEARCH_QUERY_CHANGED,
 } from '../actions/types';
 
 export function getAllNotices() {
@@ -95,5 +96,15 @@ export function editNotice(id) {
 		// 			payload: error.message,
 		// 		});
 		// 	});
+	};
+}
+
+export function getSearchedNotices(query) {
+	return dispatch => {
+		// dispatch({ type: SEARCH_NOTICES_STARTED });
+		dispatch({
+			type: SEARCH_QUERY_CHANGED,
+			payload: query,
+		});
 	};
 }

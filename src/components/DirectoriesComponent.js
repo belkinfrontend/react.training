@@ -78,7 +78,6 @@ export class DirectoriesComponent extends Component {
 		});
 
 	render() {
-		console.log(this.props);
 		const { directories } = this.props;
 
 		return (
@@ -91,20 +90,6 @@ export class DirectoriesComponent extends Component {
 				) : (
 					<List className="directoryItem">
 						{this.getDirectoriesList(directories)}
-
-						{/* HARDCODE */}
-
-						{/* <ListItem button onClick={this.handleClick}>
-							<ListItemText inset primary="HardCode" />
-							{this.state.open ? <ExpandLess /> : <ExpandMore />}
-						</ListItem>
-						<Collapse in={this.state.open} timeout="auto" unmountOnExit>
-							<List disablePadding>
-								<ListItem button style={this.style}>
-									<ListItemText inset primary="-HardCode" />
-								</ListItem>
-							</List>
-						</Collapse> */}
 					</List>
 				)}
 			</div>

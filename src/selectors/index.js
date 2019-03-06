@@ -40,5 +40,14 @@ export function getUnflattenTree(directories) {
 	return tree;
 }
 
-// let tree = getUnflattenTree(directories);
-// console.log(tree);
+const getNotices = state => state.notices.items;
+const getSearchQuery = state => state.notices.searchQuery;
+
+export const getSearchedNoticesSelector = createSelector(
+	[getNotices, getSearchQuery],
+	(notices, searchQuery) => {
+		console.log(notices, searchQuery);
+
+		return notices.filter(notice => notice.title.includes(searchQuery));
+	}
+);

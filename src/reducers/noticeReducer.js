@@ -7,12 +7,14 @@ import {
 	DELETE_NOTICE_SUCCEED,
 	EDIT_NOTICE_STARTED,
 	// EDIT_NOTICE_SUCCEED,
+	SEARCH_QUERY_CHANGED,
 } from '../actions/types';
 
 const initialState = {
 	items: [],
 	item: {},
 	currentItem: {},
+	searchQuery: '',
 	isLoading: false,
 };
 
@@ -44,9 +46,6 @@ export function noticeReducer(state = initialState, action) {
 				isLoading: false,
 			};
 
-		// case EDIT_NOTICE_STARTED:
-		// 	return { ...state, isLoading: true };
-
 		case EDIT_NOTICE_STARTED:
 			return {
 				...state,
@@ -55,6 +54,9 @@ export function noticeReducer(state = initialState, action) {
 				),
 				isLoading: false,
 			};
+
+		case SEARCH_QUERY_CHANGED:
+			return { ...state, searchQuery: action.payload };
 
 		default:
 			return state;

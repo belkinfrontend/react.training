@@ -9,16 +9,12 @@ import { Formik, Form } from 'formik';
 import { editNotice } from '../actions/noticeActions';
 
 class AddNoticeContainer extends Component {
-	constructor(props) {
-		super();
-		this.state = {
-			id: '',
-			title: '',
-			description: '',
-		};
-		// this.onChange = this.onChange.bind(this);
-		// this.onSubmit = this.onSubmit.bind(this);
-	}
+	state = {
+		id: '',
+		title: '',
+		description: '',
+	};
+	// 	// if (this.props.currentItem) {
 
 	// getDerivedStateFromProps(props, state) {
 	// 	console.log(props, state);
@@ -43,8 +39,7 @@ class AddNoticeContainer extends Component {
 	// 		directoryId: this.props.directoryID,
 	// 		title: this.state.title,
 	// 		description: this.state.description,
-	// 	};
-	// 	// if (this.props.currentItem) {
+	//
 	// 	// 	// EDIT -> PUT request
 	// 	// } else {
 	// 	// 	// NEW -> POST req
@@ -67,7 +62,6 @@ class AddNoticeContainer extends Component {
 					onSubmit={(values, { setSubmitting }) => {
 						// This is where you could wire up axios or superagent
 						const notice = {
-							id: this.state.id,
 							directoryId: this.props.directoryID,
 							title: values.title,
 							description: values.description,
@@ -140,8 +134,8 @@ AddNoticeContainer.propTypes = {
 	notice: PropTypes.object,
 };
 
-const mapStateToProps = state => ({
-	currentItem: state.notices.currentItem,
+const mapStateToProps = ({ notices }) => ({
+	currentItem: notices.currentItem,
 });
 
 export default connect(

@@ -13,9 +13,7 @@ export const useApiPostNotice = noticeData => {
 			'content-type': 'application/json',
 		},
 		body: JSON.stringify(noticeData),
-	}).then(res => {
-		return res.json();
-	});
+	}).then(res => res.json());
 };
 
 //  Delete Directory

@@ -3,6 +3,7 @@ import {
 	useApiPostNotice,
 	useApiDeleteNotice,
 	// useApiEditNotice,
+	useApiReorderNotices,
 } from '../services/notices.service';
 
 import {
@@ -19,6 +20,8 @@ import {
 	// EDIT_NOTICE_SUCCEED,
 	// EDIT_NOTICE_FAILED,
 	SEARCH_QUERY_CHANGED,
+	CHANGE_NOTICE_POSITION_SUCCEED,
+	CHANGE_NOTICE_POSITION_FAILED,
 } from '../actions/types';
 
 export function getAllNotices() {
@@ -101,10 +104,29 @@ export function editNotice(id) {
 
 export function getSearchedNotices(query) {
 	return dispatch => {
-		// dispatch({ type: SEARCH_NOTICES_STARTED });
 		dispatch({
 			type: SEARCH_QUERY_CHANGED,
 			payload: query,
 		});
+	};
+}
+
+export function dragNotice(dragEvent) {
+	console.log(dragEvent);
+	return dispatch => {
+		// useApiReorderNotices(dragEvent.draggableId)
+		// 	.then(() =>
+		dispatch({
+			type: CHANGE_NOTICE_POSITION_SUCCEED,
+			payload: dragEvent,
+		});
+		// )
+		// .catch(error => {
+		// 	dispatch({
+		// 		type: CHANGE_NOTICE_POSITION_FAILED,
+		// 		error: true,
+		// 		payload: error.message,
+		// 	});
+		// });
 	};
 }

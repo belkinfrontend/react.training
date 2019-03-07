@@ -1,69 +1,40 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Icon from '@material-ui/core/Icon';
-import Button from '@material-ui/core/Button';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
+import { SingleNotice } from './SingleNoticeComponent';
 
-const Notice = ({
-	data: { id, title, description },
-	deleteNotice,
-	editNotice,
-}) => {
-	const deleteNoticeFn = event => {
-		const noticeid = event.currentTarget.dataset.noticeid;
+const getItemStyle = (isDragging, draggableStyle) => ({
+	// change background colour if dragging
+	border: isDragging ? '2px dashed #eee' : 'none',
+	borderRadius: '10px',
+	padding: '3px',
 
-		deleteNotice(parseInt(noticeid));
-	};
+	// styles we need to apply on draggables
+	...draggableStyle,
+});
 
-	const editNoticeFn = event => {
-		const noticeid = event.currentTarget.dataset.noticeid;
-
-		editNotice(parseInt(noticeid));
-	};
-
-	return (
-		<Card className="noticeItem">
-			<CardActionArea>
-				<Icon style={{ fontSize: 100 }} color="action">
-					note
-				</Icon>
-				<CardContent>
-					<Typography gutterBottom variant="h5" component="h2">
-						{title}
-					</Typography>
-					<Typography component="p">{description}</Typography>
-				</CardContent>
-			</CardActionArea>
-			<CardActions>
-				<Button
-					onClick={editNoticeFn}
-					data-noticeid={id}
-					size="small"
-					color="primary"
-				>
-					Edit
-				</Button>
-				<Button
-					onClick={deleteNoticeFn}
-					data-noticeid={id}
-					variant="contained"
-					size="small"
-					color="secondary"
-				>
-					Delete
-				</Button>
-			</CardActions>
-		</Card>
-	);
-};
+const getListStyle = isDraggingOver => ({
+	background: isDraggingOver ? 'lightblue' : 'inherit',
+	borderRadius: '10px',
+});
 
 export class NoticesComponent extends Component {
+	constructor(props) {
+		super(props);
+
+		this.onDragEnd = this.onDragEnd.bind(this);
+	}
+
+	onDragEnd(result) {
+		// dropped outside the list
+		if (!result.destination) {
+			return;
+		}
+		this.props.dragNotice(result);
+	}
+
 	render() {
 		const { notices, deleteNotice, editNotice, isLoading } = this.props;
 
@@ -80,18 +51,43 @@ export class NoticesComponent extends Component {
 		}
 
 		return (
-			<div>
-				<div className="noticesList">
-					{notices.map(notice => (
-						<Notice
-							data={notice}
-							key={notice.id}
-							deleteNotice={deleteNotice}
-							editNotice={editNotice}
-						/>
-					))}
-				</div>
-			</div>
+			<DragDropContext onDragEnd={this.onDragEnd}>
+				<Droppable droppableId="droppable" direction="horizontal">
+					{(provided, snapshot) => (
+						<div
+							className="noticesList"
+							ref={provided.innerRef}
+							style={getListStyle(snapshot.isDraggingOver)}
+							{...provided.droppableProps}
+						>
+							{notices.map((notice, index) => (
+								<Draggable key={notice.id} draggableId={notice.id} index={index}>
+									{(provided, snapshot) => (
+										<div
+											ref={provided.innerRef}
+											{...provided.draggableProps}
+											{...provided.dragHandleProps}
+											style={getItemStyle(
+												snapshot.isDragging,
+												provided.draggableProps.style
+											)}
+										>
+											<SingleNotice
+												data={notice}
+												key={notice.id}
+												deleteNotice={deleteNotice}
+												editNotice={editNotice}
+												index={index}
+											/>
+										</div>
+									)}
+								</Draggable>
+							))}
+							{provided.placeholder}
+						</div>
+					)}
+				</Droppable>
+			</DragDropContext>
 		);
 	}
 }

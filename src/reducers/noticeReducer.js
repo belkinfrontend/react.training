@@ -8,6 +8,7 @@ import {
 	EDIT_NOTICE_STARTED,
 	// EDIT_NOTICE_SUCCEED,
 	SEARCH_QUERY_CHANGED,
+	CHANGE_NOTICE_POSITION_SUCCEED,
 } from '../actions/types';
 
 const initialState = {
@@ -16,6 +17,14 @@ const initialState = {
 	currentItem: {},
 	searchQuery: '',
 	isLoading: false,
+};
+
+const reorder = (list, startIndex, endIndex) => {
+	const result = [...list];
+	const [removed] = result.splice(startIndex, 1);
+	result.splice(endIndex, 0, removed);
+
+	return result;
 };
 
 export function noticeReducer(state = initialState, action) {
@@ -57,6 +66,14 @@ export function noticeReducer(state = initialState, action) {
 
 		case SEARCH_QUERY_CHANGED:
 			return { ...state, searchQuery: action.payload };
+
+		case CHANGE_NOTICE_POSITION_SUCCEED:
+			const newNotices = reorder(
+				state.items,
+				action.payload.source.index,
+				action.payload.destination.index
+			);
+			return { ...state, items: newNotices };
 
 		default:
 			return state;

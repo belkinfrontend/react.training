@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
 
 class AddDirectoryComponent extends Component {
 	constructor(props) {
@@ -88,9 +89,11 @@ class AddDirectoryComponent extends Component {
 						fullWidth
 						required
 					/>
-					<Button type="submit" variant="contained" size="small" color="primary">
-						Submit
-					</Button>
+					<Tooltip title="Add New Directory">
+						<Button type="submit" variant="contained" size="small" color="primary">
+							Submit
+						</Button>
+					</Tooltip>
 				</form>
 			</div>
 		);

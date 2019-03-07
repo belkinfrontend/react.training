@@ -13,34 +13,7 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import IconButton from '@material-ui/core/IconButton';
 // import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import DeleteIcon from '@material-ui/icons/Delete';
-
-/* <Fragment key={id}>
-	<Link to={`/directory/${id}`}>
-		<ListItem button onClick={this.handleClick}>
-			<ListItemText primary={name} />
-			{this.state.open ? <ExpandLess /> : <ExpandMore />}
-		</ListItem>
-
-		<Collapse in={this.state.open} timeout="auto" unmountOnExit>
-			<List disablePadding>
-				{id === 1 ? null : (
-					<ListItem button>
-						<ListItemText inset primary={name} />
-
-						{this.state.open ? <ExpandLess /> : <ExpandMore />}
-
-						<IconButton
-							aria-label="Delete"
-							onClick={() => this.props.deleteDirectory(id)}
-						>
-							<DeleteIcon />
-						</IconButton>
-					</ListItem>
-				)}
-			</List>
-		</Collapse>
-	</Link>
-</Fragment> */
+import Tooltip from '@material-ui/core/Tooltip';
 
 export class DirectoriesComponent extends Component {
 	state = {
@@ -63,12 +36,14 @@ export class DirectoriesComponent extends Component {
 						<ListItem button onClick={this.handleClick}>
 							<ListItemText inset primary={name} />
 							{id === 1 ? null : (
-								<IconButton
-									aria-label="Delete"
-									onClick={() => this.props.deleteDirectory(id)}
-								>
-									<DeleteIcon />
-								</IconButton>
+								<Tooltip title="Delete">
+									<IconButton
+										aria-label="Delete"
+										onClick={() => this.props.deleteDirectory(id)}
+									>
+										<DeleteIcon />
+									</IconButton>
+								</Tooltip>
 							)}
 						</ListItem>
 					</Link>

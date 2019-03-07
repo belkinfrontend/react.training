@@ -16,12 +16,17 @@ export const useApiPostNotice = noticeData => {
 	}).then(res => res.json());
 };
 
-//  Delete Directory
+//  Delete Notice
 export const useApiDeleteNotice = id => {
 	return axios.delete(`${SERVER_URL}/notices/${id}`).then(res => res.data);
 };
 
-//  Edit Directory
+//  Edit Notice
 export const useApiEditNotice = id => {
+	return axios.put(`${SERVER_URL}/notices/${id}`).then(res => res.data);
+};
+
+//  Reorder Notices
+export const useApiReorderNotices = id => {
 	return axios.put(`${SERVER_URL}/notices/${id}`).then(res => res.data);
 };

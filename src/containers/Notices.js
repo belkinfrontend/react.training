@@ -9,6 +9,7 @@ import {
 	addNewNotice,
 	deleteNotice,
 	editNotice,
+	dragNotice,
 } from '../actions/noticeActions';
 
 class Notices extends Component {
@@ -34,6 +35,7 @@ class Notices extends Component {
 					isLoading={this.props.isLoading}
 					deleteNotice={this.props.deleteNotice}
 					editNotice={this.props.editNotice}
+					dragNotice={this.props.dragNotice}
 				/>
 				<AddNoticeComponent
 					directoryID={id}
@@ -62,5 +64,5 @@ const mapStateToProps = ({ notices }) => ({
 
 export default connect(
 	mapStateToProps,
-	{ getAllNotices, addNewNotice, deleteNotice, editNotice }
+	{ getAllNotices, addNewNotice, deleteNotice, editNotice, dragNotice }
 )(Notices);

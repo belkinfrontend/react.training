@@ -29,10 +29,13 @@ export class NoticesComponent extends Component {
 
 	onDragEnd(result) {
 		// dropped outside the list
+		console.log(result);
 		if (!result.destination) {
 			return;
 		}
-		this.props.dragNotice(result);
+		const { notices } = this.props;
+		const notice = notices.find(({ id }) => id === result.draggableId);
+		this.props.dragNotice(notice, result.source.index, result.destination.index);
 	}
 
 	render() {
@@ -78,6 +81,9 @@ export class NoticesComponent extends Component {
 												deleteNotice={deleteNotice}
 												editNotice={editNotice}
 												index={index}
+												currentItem={this.props.currentItem}
+												addNewNotice={this.props.addNewNotice}
+												directoryID={this.props.directoryID}
 											/>
 										</div>
 									)}

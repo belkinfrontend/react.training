@@ -27,6 +27,8 @@ export const useApiEditNotice = id => {
 };
 
 //  Reorder Notices
-export const useApiReorderNotices = id => {
-	return axios.put(`${SERVER_URL}/notices/${id}`).then(res => res.data);
+export const useApiReorderNotices = noticeData => {
+	return axios
+		.put(`${SERVER_URL}/notices/${noticeData.id}`, noticeData)
+		.then(res => res.data);
 };

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import NoticesComponent from '../components/NoticesComponent';
 import AddNoticeComponent from './AddNoticeContainer';
+import Search from './Search';
+import { getSearchedNoticesSelector } from '../selectors';
 
 import {
 	getAllNotices,
@@ -30,12 +32,16 @@ class Notices extends Component {
 
 		return (
 			<section>
+				<Search />
 				<NoticesComponent
 					notices={actualNotices}
+					directoryID={id}
 					isLoading={this.props.isLoading}
 					deleteNotice={this.props.deleteNotice}
 					editNotice={this.props.editNotice}
 					dragNotice={this.props.dragNotice}
+					currentItem={this.props.currentItem}
+					addNewNotice={this.props.addNewNotice}
 				/>
 				<AddNoticeComponent
 					directoryID={id}
@@ -55,11 +61,12 @@ Notices.propTypes = {
 	deleteNotice: PropTypes.func,
 };
 
-const mapStateToProps = ({ notices }) => ({
-	notices: notices.items,
-	notice: notices.item,
-	isLoading: notices.isLoading,
-	currentItem: notices.currentItem,
+const mapStateToProps = state => ({
+	// notices: notices.items,
+	notices: getSearchedNoticesSelector(state),
+	notice: state.notices.item,
+	isLoading: state.notices.isLoading,
+	currentItem: state.notices.currentItem,
 });
 
 export default connect(

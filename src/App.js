@@ -6,7 +6,6 @@ import './App.scss';
 import ButtonAppBar from './components/ButtonAppBar';
 import Notices from './containers/Notices';
 import Directories from './containers/Directories';
-import Search from './containers/Search';
 
 import store from './store';
 
@@ -29,7 +28,6 @@ class App extends Component {
 							<Route exact path="/" component={Directories} />
 							<Route exact path="/directory/:id" component={Directories} />
 							<Route exact path="/directory/:id" component={Notices} />
-							<Search />
 						</main>
 					</div>
 				</Router>

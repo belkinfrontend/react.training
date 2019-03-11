@@ -76,7 +76,7 @@ class AddDirectoryComponent extends Component {
 	render() {
 		return (
 			<div>
-				<h1>Add Directories</h1>
+				<h3>Add Directories</h3>
 				<form onSubmit={this.onSubmit}>
 					<TextField
 						id="outlined-name"

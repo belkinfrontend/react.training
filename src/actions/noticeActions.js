@@ -111,16 +111,18 @@ export function getSearchedNotices(query) {
 	};
 }
 
-export function dragNotice(dragEvent) {
-	console.log(dragEvent);
+export function dragNotice(draggedNotice, start, end) {
+	console.log(draggedNotice);
 	return dispatch => {
-		// useApiReorderNotices(dragEvent.draggableId)
-		// 	.then(() =>
-		dispatch({
-			type: CHANGE_NOTICE_POSITION_SUCCEED,
-			payload: dragEvent,
-		});
-		// )
+		useApiReorderNotices(draggedNotice).then(() =>
+			dispatch({
+				type: CHANGE_NOTICE_POSITION_SUCCEED,
+				payload: {
+					source: { index: start },
+					destination: { index: end },
+				},
+			})
+		);
 		// .catch(error => {
 		// 	dispatch({
 		// 		type: CHANGE_NOTICE_POSITION_FAILED,

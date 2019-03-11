@@ -18,13 +18,17 @@ const initialState = {
 	searchQuery: '',
 	isLoading: false,
 };
+console.log(initialState.items);
 
 const reorder = (list, startIndex, endIndex) => {
-	const result = [...list];
+	let result = [...list];
 	const [removed] = result.splice(startIndex, 1);
 	result.splice(endIndex, 0, removed);
 
-	return result;
+	return result.map((item, idx) => {
+		item.position = idx;
+		return item;
+	});
 };
 
 export function noticeReducer(state = initialState, action) {

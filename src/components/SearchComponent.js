@@ -34,11 +34,11 @@ export class SearchComponent extends Component {
 					fullWidth
 				/>
 
-				{this.props.notices.map(notice => (
+				{/* {this.props.notices.map(notice => (
 					<div key={notice.id}>
 						<p>{notice.title}</p>
 					</div>
-				))}
+				))} */}
 			</div>
 		);
 	}

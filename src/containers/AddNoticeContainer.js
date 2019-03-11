@@ -59,7 +59,7 @@ class AddNoticeContainer extends Component {
 
 				<Formik
 					initialValues={{ title: '', description: '' }}
-					onSubmit={(values, { setSubmitting }) => {
+					onSubmit={(values, { setSubmitting, resetForm }) => {
 						// This is where you could wire up axios or superagent
 						const notice = {
 							directoryId: this.props.directoryID,
@@ -67,7 +67,7 @@ class AddNoticeContainer extends Component {
 							description: values.description,
 						};
 						this.props.addNewNotice(notice);
-						this.clearForm();
+						// this.clearForm();
 
 						console.log('Submitted Values:', values);
 						// Simulates the delay of a real request

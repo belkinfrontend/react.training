@@ -3,6 +3,7 @@ import {
 	DIRECTORIES_FETCH_SUCCEED,
 	ADD_NEW_DIRECTORY_STARTED,
 	ADD_NEW_DIRECTORY_SUCCEED,
+	ADD_NEW_DIRECTORY_FAILED,
 	DELETE_DIRECTORY_STARTED,
 	DELETE_DIRECTORY_SUCCEED,
 } from '../actions/types';
@@ -11,6 +12,7 @@ const initialState = {
 	items: [],
 	item: {},
 	isLoading: false,
+	error: null,
 };
 
 export function directoryReducer(state = initialState, action) {
@@ -28,6 +30,12 @@ export function directoryReducer(state = initialState, action) {
 			return {
 				...state,
 				items: [...state.items, action.payload],
+				isLoading: false,
+			};
+		case ADD_NEW_DIRECTORY_FAILED:
+			return {
+				...state,
+				error: { message: 'generic message' },
 				isLoading: false,
 			};
 

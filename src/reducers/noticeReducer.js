@@ -6,7 +6,7 @@ import {
 	DELETE_NOTICE_STARTED,
 	DELETE_NOTICE_SUCCEED,
 	EDIT_NOTICE_STARTED,
-	// EDIT_NOTICE_SUCCEED,
+	EDIT_NOTICE_SUCCEED,
 	SEARCH_QUERY_CHANGED,
 	CHANGE_NOTICE_POSITION_SUCCEED,
 } from '../actions/types';
@@ -14,11 +14,10 @@ import {
 const initialState = {
 	items: [],
 	item: {},
-	currentItem: {},
+	// currentItem: {},
 	searchQuery: '',
 	isLoading: false,
 };
-console.log(initialState.items);
 
 const reorder = (list, startIndex, endIndex) => {
 	let result = [...list];
@@ -60,11 +59,26 @@ export function noticeReducer(state = initialState, action) {
 			};
 
 		case EDIT_NOTICE_STARTED:
+			return { ...state, isLoading: true };
+
+		case EDIT_NOTICE_SUCCEED:
+			// const newState = state.items.map(item => {
+			// 	if (item.id === action.payload.id) {
+			// 		return action.payload;
+			// 	} else {
+			// 		return item;
+			// 	}
+			// });
+
 			return {
 				...state,
-				currentItem: state.items.find(
-					currentItem => currentItem.id === action.payload
-				),
+				items: state.items.map(item => {
+					if (item.id === action.payload.id) {
+						return action.payload;
+					} else {
+						return item;
+					}
+				}),
 				isLoading: false,
 			};
 

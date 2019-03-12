@@ -26,8 +26,6 @@ export class SingleNotice extends Component {
 
 	handleClickOpen = event => {
 		this.setState({ open: true });
-		const noticeid = event.currentTarget.dataset.noticeid;
-		this.props.editNotice(parseInt(noticeid));
 	};
 
 	handleClose = () => {
@@ -40,14 +38,14 @@ export class SingleNotice extends Component {
 		this.props.deleteNotice(parseInt(noticeid));
 	};
 
-	editNoticeFn = event => {
-		const noticeid = event.currentTarget.dataset.noticeid;
+	// editNoticeFn = (event, noticeData) => {
+	// 	const noticeid = event.currentTarget.dataset.noticeid;
 
-		this.props.editNotice(parseInt(noticeid));
-	};
+	// 	this.props.editNotice(noticeData, parseInt(noticeid));
+	// };
 
 	render() {
-		const { title, description, id } = this.props.data;
+		const { title, description, id } = this.props.notice;
 		return (
 			<Card className="noticeItem">
 				<Icon style={{ fontSize: 100 }} color="action">
@@ -76,21 +74,16 @@ export class SingleNotice extends Component {
 					>
 						<DialogTitle id="form-dialog-title">Edit notice</DialogTitle>
 						<DialogContent>
-							<DialogContentText>Edit notice, pozhaluisto!</DialogContentText>
+							<DialogContentText>Edit notice</DialogContentText>
 							<Formik
 								initialValues={{
-									title: this.props.currentItem.title,
-									description: this.props.currentItem.description,
+									title: this.props.notice.title,
+									description: this.props.notice.description,
 								}}
 								onSubmit={(values, { setSubmitting }) => {
 									// This is where you could wire up axios or superagent
-									const notice = {
-										directoryId: this.props.directoryID,
-										title: values.title,
-										description: values.description,
-									};
-									this.props.addNewNotice(notice);
-									// this.clearForm();
+									const notice = { ...this.props.notice, ...values };
+									this.props.editNotice(notice, id);
 
 									console.log('Submitted Values:', values);
 									// Simulates the delay of a real request
@@ -122,15 +115,6 @@ export class SingleNotice extends Component {
 											variant="outlined"
 											fullWidth
 										/>
-										<Button
-											type="reset"
-											value="Reset"
-											variant="contained"
-											onClick={props.handleReset}
-											disabled={!props.dirty || props.isSubmitting}
-										>
-											Reset
-										</Button>
 
 										<Button
 											value="Submit"
@@ -139,9 +123,9 @@ export class SingleNotice extends Component {
 											variant="contained"
 											size="medium"
 											color="primary"
-											onClick={this.editNoticeFn}
+											data-noticeid={id}
 										>
-											Submit
+											Save
 										</Button>
 									</Form>
 								)}
@@ -152,9 +136,6 @@ export class SingleNotice extends Component {
 						<DialogActions>
 							<Button onClick={this.handleClose} color="primary">
 								Cancel
-							</Button>
-							<Button onClick={this.handleClose} color="primary">
-								Save
 							</Button>
 						</DialogActions>
 					</Dialog>

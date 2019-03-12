@@ -76,7 +76,7 @@ export class NoticesComponent extends Component {
 											)}
 										>
 											<SingleNotice
-												data={notice}
+												notice={notice}
 												key={notice.id}
 												deleteNotice={deleteNotice}
 												editNotice={editNotice}

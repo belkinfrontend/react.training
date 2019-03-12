@@ -33,6 +33,7 @@ class Directories extends Component {
 					addNewDirectory={this.props.addNewDirectory}
 					directories={this.props.directories}
 					directoryID={id}
+					error={this.props.error}
 				/>
 				<DirectoriesComponent
 					directory={this.props.directory}
@@ -57,6 +58,7 @@ const mapStateToProps = state => ({
 	directories: getUnflattenTree(state.directories.items),
 	directory: state.directories.item,
 	isLoading: state.directories.isLoading,
+	error: state.directories.error,
 });
 
 export default connect(

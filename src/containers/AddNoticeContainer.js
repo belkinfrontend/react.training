@@ -9,49 +9,6 @@ import { Formik, Form } from 'formik';
 import { editNotice } from '../actions/noticeActions';
 
 class AddNoticeContainer extends Component {
-	state = {
-		id: '',
-		title: '',
-		description: '',
-	};
-	// 	// if (this.props.currentItem) {
-
-	// getDerivedStateFromProps(props, state) {
-	// 	console.log(props, state);
-	// 	return {
-	// 		id: props.currentItem.id,
-	// 		title: props.currentItem.title,
-	// 		description: props.currentItem.description,
-	// 	};
-	// }
-
-	// onChange(e) {
-	// 	this.setState({ [e.target.name]: e.target.value });
-	// }
-
-	// onSubmit(e) {
-	// 	e.preventDefault();
-
-	// 	console.log(this.props);
-
-	// 	const notice = {
-	// 		id: this.state.id,
-	// 		directoryId: this.props.directoryID,
-	// 		title: this.state.title,
-	// 		description: this.state.description,
-	//
-	// 	// 	// EDIT -> PUT request
-	// 	// } else {
-	// 	// 	// NEW -> POST req
-	// 	// }
-	// 	this.props.addNewNotice(notice);
-	// 	this.clearForm();
-	// }
-
-	clearForm() {
-		this.setState({ title: '', description: '' });
-	}
-
 	render() {
 		return (
 			<div>
@@ -62,15 +19,16 @@ class AddNoticeContainer extends Component {
 					onSubmit={(values, { setSubmitting, resetForm }) => {
 						// This is where you could wire up axios or superagent
 						const notice = {
-							directoryId: this.props.directoryID,
+							directoryId: parseInt(this.props.directoryID),
+							// directoryId: this.props.directoryID,
 							title: values.title,
 							description: values.description,
 						};
 						this.props.addNewNotice(notice);
-						// this.clearForm();
+						// resetForm();
 
-						console.log('Submitted Values:', values);
-						// Simulates the delay of a real request
+						// console.log('Submitted Values:', values);
+						// // Simulates the delay of a real request
 						setTimeout(() => setSubmitting(false), 2 * 1000);
 					}}
 				>
@@ -135,7 +93,7 @@ AddNoticeContainer.propTypes = {
 };
 
 const mapStateToProps = ({ notices }) => ({
-	currentItem: notices.currentItem,
+	// currentItem: notices.currentItem,
 });
 
 export default connect(

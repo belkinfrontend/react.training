@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 
 export class SearchComponent extends Component {
 	constructor(props) {
@@ -9,7 +8,6 @@ export class SearchComponent extends Component {
 			title: '',
 		};
 		this.onChange = this.onChange.bind(this);
-		// this.onSubmit = this.onSubmit.bind(this);
 	}
 
 	onChange(e) {
@@ -18,7 +16,6 @@ export class SearchComponent extends Component {
 	}
 
 	render() {
-		console.log(this.props.notices);
 		return (
 			<div>
 				<h3>SearchComponent</h3>
@@ -33,12 +30,6 @@ export class SearchComponent extends Component {
 					variant="outlined"
 					fullWidth
 				/>
-
-				{/* {this.props.notices.map(notice => (
-					<div key={notice.id}>
-						<p>{notice.title}</p>
-					</div>
-				))} */}
 			</div>
 		);
 	}

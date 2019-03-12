@@ -28,7 +28,9 @@ class Notices extends Component {
 				params: { id },
 			},
 		} = this.props;
-		const actualNotices = notices.filter(({ directoryId }) => directoryId === id);
+		const actualNotices = notices.filter(
+			({ directoryId }) => directoryId === parseInt(id)
+		);
 
 		return (
 			<section>

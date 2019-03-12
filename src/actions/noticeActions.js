@@ -2,7 +2,7 @@ import {
 	useApiGetNotices,
 	useApiPostNotice,
 	useApiDeleteNotice,
-	// useApiEditNotice,
+	useApiEditNotice,
 	useApiReorderNotices,
 } from '../services/notices.service';
 
@@ -17,8 +17,8 @@ import {
 	DELETE_NOTICE_SUCCEED,
 	DELETE_NOTICE_FAILED,
 	EDIT_NOTICE_STARTED,
-	// EDIT_NOTICE_SUCCEED,
-	// EDIT_NOTICE_FAILED,
+	EDIT_NOTICE_SUCCEED,
+	EDIT_NOTICE_FAILED,
 	SEARCH_QUERY_CHANGED,
 	CHANGE_NOTICE_POSITION_SUCCEED,
 	CHANGE_NOTICE_POSITION_FAILED,
@@ -79,26 +79,33 @@ export function deleteNotice(id) {
 	};
 }
 
-export function editNotice(id) {
+export function editNotice(noticeData, id) {
+	console.log(noticeData, id);
+
 	return dispatch => {
-		dispatch({
-			type: EDIT_NOTICE_STARTED,
-			payload: id,
-		});
-		// useApiEditNotice(id)
-		// 	.then(() =>
-		// 		dispatch({
-		// 			type: EDIT_NOTICE_SUCCEED,
-		// 			payload: id,
-		// 		})
-		// 	)
-		// 	.catch(error => {
-		// 		dispatch({
-		// 			type: EDIT_NOTICE_FAILED,
-		// 			error: true,
-		// 			payload: error.message,
-		// 		});
-		// 	});
+		dispatch({ type: EDIT_NOTICE_STARTED });
+		useApiEditNotice(noticeData)
+			.then(notice =>
+				dispatch({
+					type: EDIT_NOTICE_SUCCEED,
+					payload: notice,
+				})
+			)
+
+			// .then(() => {
+			// 	dispatch({ type: NOTICES_FETCH_STARTED });
+			// 	return useApiGetNotices();
+			// })
+			// .then(result => {
+			// 	dispatch({ type: NOTICES_FETCH_SUCCEED, payload: result });
+			// })
+			.catch(error => {
+				dispatch({
+					type: EDIT_NOTICE_FAILED,
+					error: true,
+					payload: error.message,
+				});
+			});
 	};
 }
 

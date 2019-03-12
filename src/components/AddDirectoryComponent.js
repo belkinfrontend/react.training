@@ -3,9 +3,23 @@ import PropTypes from 'prop-types';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 class AddDirectoryComponent extends Component {
+	state = {
+		open: false,
+	};
+
+	handleClose = (event, reason) => {
+		if (reason === 'clickaway') {
+			return;
+		}
+
+		this.setState({ open: false });
+	};
+
 	constructor(props) {
 		super();
 		this.state = {
@@ -28,43 +42,11 @@ class AddDirectoryComponent extends Component {
 		const directory = {
 			id: parseInt(this.state.id),
 			name: this.state.name,
-			parentId: parseInt(this.props.directoryID), // ===== CHANGE IT LATER
+			parentId: parseInt(this.props.directoryID),
 		};
 
-		// const { directories } = this.props;
-		// function unflatten(directories) {
-		// 	let tree = [],
-		// 		mappedArr = {},
-		// 		arrElem,
-		// 		mappedElem;
-
-		// 	// First map the nodes of the array to an object -> create a hash table.
-		// 	for (let i = 0, length = directories.length; i < length; i++) {
-		// 		arrElem = directories[i];
-		// 		mappedArr[arrElem.id] = arrElem;
-		// 		mappedArr[arrElem.id]['children'] = [];
-		// 	}
-
-		// 	for (let id in mappedArr) {
-		// 		if (mappedArr.hasOwnProperty(id)) {
-		// 			mappedElem = mappedArr[id];
-		// 			// If the element is not at the root level, add it to its parent array of children.
-		// 			if (mappedElem.parentId) {
-		// 				mappedArr[mappedElem['parentId']]['children'].push(mappedElem);
-		// 			}
-		// 			// If the element is at the root level, add it to first level elements array.
-		// 			else {
-		// 				tree.push(mappedElem);
-		// 			}
-		// 		}
-		// 	}
-		// 	return tree;
-		// }
-
-		// let tree = unflatten(directories);
-		// console.log(tree);
-
 		this.props.addNewDirectory(directory);
+		this.setState({ open: true });
 
 		this.clearForm();
 	}
@@ -89,11 +71,46 @@ class AddDirectoryComponent extends Component {
 						fullWidth
 						required
 					/>
-					<Tooltip title="Add New Directory">
-						<Button type="submit" variant="contained" size="small" color="primary">
-							Submit
-						</Button>
-					</Tooltip>
+					<Button
+						type="submit"
+						variant="contained"
+						size="small"
+						color="primary"
+						// onClick={this.handleClick}
+					>
+						Submit
+					</Button>
+
+					<Snackbar
+						anchorOrigin={{
+							vertical: 'bottom',
+							horizontal: 'left',
+						}}
+						open={this.state.open}
+						autoHideDuration={4000}
+						onClose={this.handleClose}
+						ContentProps={{
+							'aria-describedby': 'message-id',
+						}}
+						message={
+							this.props.error ? (
+								<span id="message-id">{this.props.error.message}</span>
+							) : (
+								<span id="message-id">New directory was added</span>
+							)
+						}
+						action={[
+							<IconButton
+								key="close"
+								aria-label="Close"
+								color="inherit"
+								// className={classes.close}
+								onClick={this.handleClose}
+							>
+								<CloseIcon />
+							</IconButton>,
+						]}
+					/>
 				</form>
 			</div>
 		);

@@ -17,6 +17,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+import ChipInput from 'material-ui-chip-input';
 import { Formik, Form } from 'formik';
 
 export class SingleNotice extends Component {
@@ -45,6 +46,7 @@ export class SingleNotice extends Component {
 	// };
 
 	render() {
+		console.log('this.props.notice', this.props.notice);
 		const { title, description, id } = this.props.notice;
 		return (
 			<Card className="noticeItem">
@@ -79,6 +81,7 @@ export class SingleNotice extends Component {
 								initialValues={{
 									title: this.props.notice.title,
 									description: this.props.notice.description,
+									tags: this.props.notice.tags,
 								}}
 								onSubmit={(values, { setSubmitting }) => {
 									// This is where you could wire up axios or superagent
@@ -114,6 +117,15 @@ export class SingleNotice extends Component {
 											margin="normal"
 											variant="outlined"
 											fullWidth
+										/>
+
+										<ChipInput
+											value={props.values.tags}
+											margin="normal"
+											variant="outlined"
+											fullWidth
+											// onAdd={chip => handleAddChip(chip)}
+											// onDelete={(chip, index) => handleDeleteChip(chip, index)}
 										/>
 
 										<Button

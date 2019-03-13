@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { Formik, Form } from 'formik';
+import { Formik, Form, Field } from 'formik';
+
+import ChipInput from 'material-ui-chip-input';
 
 import { editNotice } from '../actions/noticeActions';
 
@@ -15,70 +17,90 @@ class AddNoticeContainer extends Component {
 				<h1>Add Notices</h1>
 
 				<Formik
-					initialValues={{ title: '', description: '' }}
+					initialValues={{
+						title: '',
+						description: '',
+						// tags: [],
+						tags: ['foo', 'bar'],
+					}}
 					onSubmit={(values, { setSubmitting, resetForm }) => {
 						// This is where you could wire up axios or superagent
 						const notice = {
 							directoryId: parseInt(this.props.directoryID),
-							// directoryId: this.props.directoryID,
 							title: values.title,
 							description: values.description,
+							tags: values.tags,
 						};
 						this.props.addNewNotice(notice);
 						// resetForm();
 
-						// console.log('Submitted Values:', values);
-						// // Simulates the delay of a real request
 						setTimeout(() => setSubmitting(false), 2 * 1000);
 					}}
 				>
-					{props => (
-						<Form>
-							<TextField
-								label="Title"
-								name="title"
-								value={props.values.title}
-								onChange={props.handleChange}
-								onBlur={props.handleBlur}
-								margin="normal"
-								variant="outlined"
-								required
-								fullWidth
-							/>
-							<TextField
-								label="Description"
-								name="description"
-								value={props.values.description}
-								onChange={props.handleChange}
-								onBlur={props.handleBlur}
-								multiline
-								rows="6"
-								margin="normal"
-								variant="outlined"
-								fullWidth
-							/>
-							<Button
-								type="reset"
-								value="Reset"
-								variant="contained"
-								onClick={props.handleReset}
-								disabled={!props.dirty || props.isSubmitting}
-							>
-								Reset
-							</Button>
+					{props => {
+						console.log(props);
+						return (
+							<Form>
+								<TextField
+									label="Title"
+									name="title"
+									value={props.values.title}
+									onChange={props.handleChange}
+									onBlur={props.handleBlur}
+									margin="normal"
+									variant="outlined"
+									required
+									fullWidth
+								/>
+								<TextField
+									label="Description"
+									name="description"
+									value={props.values.description}
+									onChange={props.handleChange}
+									onBlur={props.handleBlur}
+									multiline
+									rows="6"
+									margin="normal"
+									variant="outlined"
+									fullWidth
+								/>
 
-							<Button
-								value="Submit"
-								disabled={props.isSubmitting}
-								type="submit"
-								variant="contained"
-								size="medium"
-								color="primary"
-							>
-								Submit
-							</Button>
-						</Form>
-					)}
+								<ChipInput
+									defaultValue={props.values.tags}
+									// defaultValue={['foo', 'bar']}
+									name="tags"
+									onChange={tag => props.values.tags.push(...tag)}
+									label="Tags"
+									margin="normal"
+									variant="outlined"
+									fullWidth
+									// onAdd={chip => handleAddChip(chip)}
+									// onDelete={(chip, index) => handleDeleteChip(chip, index)}
+								/>
+
+								<Button
+									type="reset"
+									value="Reset"
+									variant="contained"
+									onClick={props.handleReset}
+									disabled={!props.dirty || props.isSubmitting}
+								>
+									Reset
+								</Button>
+
+								<Button
+									value="Submit"
+									disabled={props.isSubmitting}
+									type="submit"
+									variant="contained"
+									size="medium"
+									color="primary"
+								>
+									Submit
+								</Button>
+							</Form>
+						);
+					}}
 
 					{/* </form> */}
 				</Formik>

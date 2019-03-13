@@ -25,7 +25,6 @@ Search.propTypes = {
 
 const mapStateToProps = state => ({
 	notices: getSearchedNoticesSelector(state),
-	// notices: state.notices.items,
 });
 
 export default connect(

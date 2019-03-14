@@ -33,6 +33,12 @@ export class NoticesComponent extends Component {
 		if (!result.destination) {
 			return;
 		}
+
+		// dropped at the same place
+		if (result.destination.index === result.source.index) {
+			return;
+		}
+
 		const { notices } = this.props;
 		const notice = notices.find(({ id }) => id === result.draggableId);
 		this.props.dragNotice(notice, result.source.index, result.destination.index);

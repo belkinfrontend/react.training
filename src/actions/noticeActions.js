@@ -24,6 +24,8 @@ import {
 	CHANGE_NOTICE_POSITION_FAILED,
 } from '../actions/types';
 
+//================ getAllNotices
+
 export function getAllNotices() {
 	return dispatch => {
 		dispatch({ type: NOTICES_FETCH_STARTED });
@@ -40,6 +42,8 @@ export function getAllNotices() {
 			});
 	};
 }
+
+//================ addNewNotice
 
 export const addNewNotice = noticeData => dispatch => {
 	dispatch({ type: ADD_NEW_NOTICE_STARTED });
@@ -58,6 +62,8 @@ export const addNewNotice = noticeData => dispatch => {
 			});
 		});
 };
+
+//================ deleteNotice
 
 export function deleteNotice(id) {
 	return dispatch => {
@@ -79,6 +85,8 @@ export function deleteNotice(id) {
 	};
 }
 
+//================ editNotice
+
 export function editNotice(noticeData, id) {
 	console.log(noticeData, id);
 
@@ -91,14 +99,6 @@ export function editNotice(noticeData, id) {
 					payload: notice,
 				})
 			)
-
-			// .then(() => {
-			// 	dispatch({ type: NOTICES_FETCH_STARTED });
-			// 	return useApiGetNotices();
-			// })
-			// .then(result => {
-			// 	dispatch({ type: NOTICES_FETCH_SUCCEED, payload: result });
-			// })
 			.catch(error => {
 				dispatch({
 					type: EDIT_NOTICE_FAILED,
@@ -109,6 +109,8 @@ export function editNotice(noticeData, id) {
 	};
 }
 
+//================ getSearchedNotices
+
 export function getSearchedNotices(query) {
 	return dispatch => {
 		dispatch({
@@ -118,24 +120,27 @@ export function getSearchedNotices(query) {
 	};
 }
 
+//================ dragNotice
+
 export function dragNotice(draggedNotice, start, end) {
 	console.log(draggedNotice);
 	return dispatch => {
-		useApiReorderNotices(draggedNotice).then(() =>
-			dispatch({
-				type: CHANGE_NOTICE_POSITION_SUCCEED,
-				payload: {
-					source: { index: start },
-					destination: { index: end },
-				},
-			})
-		);
-		// .catch(error => {
-		// 	dispatch({
-		// 		type: CHANGE_NOTICE_POSITION_FAILED,
-		// 		error: true,
-		// 		payload: error.message,
-		// 	});
-		// });
+		useApiReorderNotices(draggedNotice)
+			.then(() =>
+				dispatch({
+					type: CHANGE_NOTICE_POSITION_SUCCEED,
+					payload: {
+						source: { index: start },
+						destination: { index: end },
+					},
+				})
+			)
+			.catch(error => {
+				dispatch({
+					type: CHANGE_NOTICE_POSITION_FAILED,
+					error: true,
+					payload: error.message,
+				});
+			});
 	};
 }

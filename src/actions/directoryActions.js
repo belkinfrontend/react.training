@@ -16,6 +16,8 @@ import {
 	DELETE_DIRECTORY_FAILED,
 } from './types';
 
+//================ getDirectories
+
 export function getDirectories() {
 	return dispatch => {
 		dispatch({ type: DIRECTORIES_FETCH_STARTED });

@@ -4,13 +4,17 @@ import { connect } from 'react-redux';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form } from 'formik';
 
 import ChipInput from 'material-ui-chip-input';
 
 import { editNotice } from '../actions/noticeActions';
 
 class AddNoticeContainer extends Component {
+	// handleAddChip = ({ values: { tags } }) => tag => {
+	// 	tags.push(tag);
+	// };
+
 	render() {
 		return (
 			<div>
@@ -20,11 +24,9 @@ class AddNoticeContainer extends Component {
 					initialValues={{
 						title: '',
 						description: '',
-						// tags: [],
-						tags: ['foo', 'bar'],
+						tags: [],
 					}}
 					onSubmit={(values, { setSubmitting, resetForm }) => {
-						// This is where you could wire up axios or superagent
 						const notice = {
 							directoryId: parseInt(this.props.directoryID),
 							title: values.title,
@@ -38,7 +40,13 @@ class AddNoticeContainer extends Component {
 					}}
 				>
 					{props => {
-						console.log(props);
+						const handleAddChip = tag => {
+							props.values.tags.push(tag);
+						};
+
+						const handleDeleteChip = (tag, index) => {
+							props.values.tags.splice(index, 1);
+						};
 						return (
 							<Form>
 								<TextField
@@ -64,18 +72,16 @@ class AddNoticeContainer extends Component {
 									variant="outlined"
 									fullWidth
 								/>
-
 								<ChipInput
 									defaultValue={props.values.tags}
-									// defaultValue={['foo', 'bar']}
+									value={props.values.tags}
 									name="tags"
-									onChange={tag => props.values.tags.push(...tag)}
 									label="Tags"
 									margin="normal"
 									variant="outlined"
 									fullWidth
-									// onAdd={chip => handleAddChip(chip)}
-									// onDelete={(chip, index) => handleDeleteChip(chip, index)}
+									onAdd={tag => handleAddChip(tag)}
+									onDelete={(tag, index) => handleDeleteChip(tag, index)}
 								/>
 
 								<Button

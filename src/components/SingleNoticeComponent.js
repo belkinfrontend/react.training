@@ -39,14 +39,7 @@ export class SingleNotice extends Component {
 		this.props.deleteNotice(parseInt(noticeid));
 	};
 
-	// editNoticeFn = (event, noticeData) => {
-	// 	const noticeid = event.currentTarget.dataset.noticeid;
-
-	// 	this.props.editNotice(noticeData, parseInt(noticeid));
-	// };
-
 	render() {
-		console.log('this.props.notice', this.props.notice);
 		const { title, description, id } = this.props.notice;
 		return (
 			<Card className="noticeItem">
@@ -79,68 +72,89 @@ export class SingleNotice extends Component {
 							<DialogContentText>Edit notice</DialogContentText>
 							<Formik
 								initialValues={{
+									directoryId: parseInt(this.props.directoryID),
 									title: this.props.notice.title,
 									description: this.props.notice.description,
 									tags: this.props.notice.tags,
 								}}
 								onSubmit={(values, { setSubmitting }) => {
-									// This is where you could wire up axios or superagent
 									const notice = { ...this.props.notice, ...values };
 									this.props.editNotice(notice, id);
 
-									console.log('Submitted Values:', values);
-									// Simulates the delay of a real request
 									setTimeout(() => setSubmitting(false), 2 * 1000);
 								}}
 							>
-								{props => (
-									<Form>
-										<TextField
-											label="Title"
-											name="title"
-											value={props.values.title}
-											onChange={props.handleChange}
-											onBlur={props.handleBlur}
-											margin="normal"
-											variant="outlined"
-											required
-											fullWidth
-										/>
-										<TextField
-											label="Description"
-											name="description"
-											value={props.values.description}
-											onChange={props.handleChange}
-											onBlur={props.handleBlur}
-											multiline
-											rows="6"
-											margin="normal"
-											variant="outlined"
-											fullWidth
-										/>
+								{props => {
+									console.log(props);
+									const handleAddChip = tag => {
+										props.values.tags.push(tag);
+									};
 
-										<ChipInput
-											value={props.values.tags}
-											margin="normal"
-											variant="outlined"
-											fullWidth
-											// onAdd={chip => handleAddChip(chip)}
-											// onDelete={(chip, index) => handleDeleteChip(chip, index)}
-										/>
+									const handleDeleteChip = (tag, index) => {
+										props.values.tags.splice(index, 1);
+									};
+									return (
+										<Form>
+											<TextField
+												label="Title"
+												name="title"
+												value={props.values.title}
+												onChange={props.handleChange}
+												onBlur={props.handleBlur}
+												margin="normal"
+												variant="outlined"
+												required
+												fullWidth
+											/>
+											<TextField
+												label="Description"
+												name="description"
+												value={props.values.description}
+												onChange={props.handleChange}
+												onBlur={props.handleBlur}
+												multiline
+												rows="6"
+												margin="normal"
+												variant="outlined"
+												fullWidth
+											/>
+											<ChipInput
+												// defaultValue={props.values.tags}
+												value={props.values.tags}
+												// defaultValue={['foo', 'bar']}
+												name="tags"
+												// onChange={tag => props.values.tags.push(...tag)}
+												label="Tags"
+												margin="normal"
+												variant="outlined"
+												fullWidth
+												onAdd={chip => handleAddChip(chip)}
+												onDelete={(chip, index) => handleDeleteChip(chip, index)}
+											/>
 
-										<Button
-											value="Submit"
-											disabled={props.isSubmitting}
-											type="submit"
-											variant="contained"
-											size="medium"
-											color="primary"
-											data-noticeid={id}
-										>
-											Save
-										</Button>
-									</Form>
-								)}
+											<Button
+												type="reset"
+												value="Reset"
+												variant="contained"
+												onClick={props.handleReset}
+												disabled={!props.dirty || props.isSubmitting}
+											>
+												Reset
+											</Button>
+
+											<Button
+												value="Submit"
+												disabled={props.isSubmitting}
+												type="submit"
+												variant="contained"
+												size="medium"
+												color="primary"
+											>
+												Submit
+											</Button>
+										</Form>
+									);
+								}}
 
 								{/* </form> */}
 							</Formik>

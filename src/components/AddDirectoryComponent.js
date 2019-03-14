@@ -3,23 +3,8 @@ import PropTypes from 'prop-types';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
 
 class AddDirectoryComponent extends Component {
-	state = {
-		open: false,
-	};
-
-	handleClose = (event, reason) => {
-		if (reason === 'clickaway') {
-			return;
-		}
-
-		this.setState({ open: false });
-	};
-
 	constructor(props) {
 		super();
 		this.state = {
@@ -37,7 +22,6 @@ class AddDirectoryComponent extends Component {
 
 	onSubmit(e) {
 		e.preventDefault();
-		console.log(this.props);
 
 		const directory = {
 			id: parseInt(this.state.id),
@@ -46,8 +30,6 @@ class AddDirectoryComponent extends Component {
 		};
 
 		this.props.addNewDirectory(directory);
-		this.setState({ open: true });
-
 		this.clearForm();
 	}
 
@@ -71,46 +53,9 @@ class AddDirectoryComponent extends Component {
 						fullWidth
 						required
 					/>
-					<Button
-						type="submit"
-						variant="contained"
-						size="small"
-						color="primary"
-						// onClick={this.handleClick}
-					>
+					<Button type="submit" variant="contained" size="small" color="primary">
 						Submit
 					</Button>
-
-					<Snackbar
-						anchorOrigin={{
-							vertical: 'bottom',
-							horizontal: 'left',
-						}}
-						open={this.state.open}
-						autoHideDuration={4000}
-						onClose={this.handleClose}
-						ContentProps={{
-							'aria-describedby': 'message-id',
-						}}
-						message={
-							this.props.error ? (
-								<span id="message-id">{this.props.error.message}</span>
-							) : (
-								<span id="message-id">New directory was added</span>
-							)
-						}
-						action={[
-							<IconButton
-								key="close"
-								aria-label="Close"
-								color="inherit"
-								// className={classes.close}
-								onClick={this.handleClose}
-							>
-								<CloseIcon />
-							</IconButton>,
-						]}
-					/>
 				</form>
 			</div>
 		);

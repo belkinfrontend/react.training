@@ -21,7 +21,6 @@ class Notices extends Component {
 	}
 
 	render() {
-		console.log(this.props);
 		const {
 			notices,
 			match: {

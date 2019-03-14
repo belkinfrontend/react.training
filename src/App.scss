@@ -34,7 +34,19 @@
 
 main {
   display: grid;
-  grid-template-columns: 30% 60%;
-  grid-gap: 5%;
-  margin: 0 10px;
+  grid-template-columns: 1fr 3fr;
+  // grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 2vw;
+  padding: 5px;
+}
+
+@media all and (max-width: 575px) {
+  main {
+    display: grid;
+    grid-template-columns: 1fr;
+
+}}
+
+.MuiInputBase-input-169 {
+  width: 90% !important;
 }

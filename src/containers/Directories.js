@@ -19,8 +19,6 @@ class Directories extends Component {
 	}
 
 	render() {
-		console.log(this.props);
-
 		const {
 			match: {
 				params: { id },

@@ -9,7 +9,6 @@ import SearchComponent from '../components/SearchComponent';
 
 export class Search extends Component {
 	render() {
-		console.log(this.props.notices);
 		return (
 			<SearchComponent
 				notices={this.props.notices}

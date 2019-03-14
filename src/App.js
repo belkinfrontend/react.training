@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
-import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './store';
 
-import './App.scss';
 import ButtonAppBar from './components/ButtonAppBar';
 import Notices from './containers/Notices';
 import Directories from './containers/Directories';
 
-import store from './store';
-
-// // ----------------  TEST COMPONENT
-// const CommonDirectoryElement = ({ match }) => {
-// 	console.log(match.params);
-// 	return <span>{match.params.id}</span>;
-// };
-// // ----------------  TEST COMPONENT
+import './App.scss';
 
 class App extends Component {
 	render() {
@@ -24,7 +17,6 @@ class App extends Component {
 					<div className="App">
 						<ButtonAppBar />
 						<main>
-							{/* <Directories directoryID={match.params.id} /> */}
 							<Route exact path="/" component={Directories} />
 							<Route exact path="/directory/:id" component={Directories} />
 							<Route exact path="/directory/:id" component={Notices} />

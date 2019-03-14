@@ -27,21 +27,23 @@ export class DirectoriesComponent extends Component {
 		directories.map(({ name, id, children }) => {
 			return (
 				<li key={id}>
-					<Link to={`/directory/${id}`}>
-						<ListItem button onClick={this.handleClick}>
-							<ListItemText inset primary={name} />
-							{id === 1 ? null : (
-								<Tooltip title="Delete">
-									<IconButton
-										aria-label="Delete"
-										onClick={() => this.props.deleteDirectory(id)}
-									>
-										<DeleteIcon />
-									</IconButton>
-								</Tooltip>
-							)}
-						</ListItem>
-					</Link>
+					{id === 1 ? null : (
+						<Link to={`/directory/${id}`}>
+							<ListItem button onClick={this.handleClick}>
+								<ListItemText inset primary={name} />
+								{id === 1 ? null : (
+									<Tooltip title="Delete">
+										<IconButton
+											aria-label="Delete"
+											onClick={() => this.props.deleteDirectory(id)}
+										>
+											<DeleteIcon />
+										</IconButton>
+									</Tooltip>
+								)}
+							</ListItem>
+						</Link>
+					)}
 					{children ? <ul>{this.getDirectoriesList(children)}</ul> : null}
 				</li>
 			);

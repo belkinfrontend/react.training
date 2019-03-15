@@ -85,7 +85,6 @@ export class SingleNotice extends Component {
 								}}
 							>
 								{props => {
-									console.log(props);
 									const handleAddChip = tag => {
 										props.values.tags.push(tag);
 									};
@@ -150,7 +149,7 @@ export class SingleNotice extends Component {
 												size="medium"
 												color="primary"
 											>
-												Submit
+												Save
 											</Button>
 										</Form>
 									);

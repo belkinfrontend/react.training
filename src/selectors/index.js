@@ -46,6 +46,10 @@ const getSearchQuery = state => state.notices.searchQuery;
 export const getSearchedNoticesSelector = createSelector(
 	[getNotices, getSearchQuery],
 	(notices, searchQuery) => {
-		return notices.filter(notice => notice.title.includes(searchQuery));
+		return notices.filter(
+			notice =>
+				notice.title.includes(searchQuery) ||
+				notice.tags.some(tag => tag.includes(searchQuery))
+		);
 	}
 );

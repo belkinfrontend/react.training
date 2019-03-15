@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -7,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import Home from '@material-ui/icons/Home';
 
 const styles = {
 	root: {
@@ -34,6 +36,13 @@ function ButtonAppBar(props) {
 					>
 						<MenuIcon />
 					</IconButton>
+
+					<NavLink to={'/directory/1'}>
+						<IconButton variant="contained">
+							<Home />
+						</IconButton>
+					</NavLink>
+
 					<Typography variant="h6" color="inherit" className={classes.grow}>
 						Notes App
 					</Typography>

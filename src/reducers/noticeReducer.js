@@ -62,14 +62,6 @@ export function noticeReducer(state = initialState, action) {
 			return { ...state, isLoading: true };
 
 		case EDIT_NOTICE_SUCCEED:
-			// const newState = state.items.map(item => {
-			// 	if (item.id === action.payload.id) {
-			// 		return action.payload;
-			// 	} else {
-			// 		return item;
-			// 	}
-			// });
-
 			return {
 				...state,
 				items: state.items.map(item => {

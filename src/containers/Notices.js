@@ -21,14 +21,9 @@ class Notices extends Component {
 	}
 
 	render() {
-		const {
-			notices,
-			match: {
-				params: { id },
-			},
-		} = this.props;
+		const { notices } = this.props;
 		const actualNotices = notices.filter(
-			({ directoryId }) => directoryId === parseInt(id)
+			({ directoryId }) => directoryId === parseInt(this.props.directoryID)
 		);
 
 		return (
@@ -36,7 +31,7 @@ class Notices extends Component {
 				<Search />
 				<NoticesComponent
 					notices={actualNotices}
-					directoryID={id}
+					directoryID={this.props.directoryID}
 					isLoading={this.props.isLoading}
 					deleteNotice={this.props.deleteNotice}
 					editNotice={this.props.editNotice}
@@ -45,7 +40,7 @@ class Notices extends Component {
 					addNewNotice={this.props.addNewNotice}
 				/>
 				<AddNoticeComponent
-					directoryID={id}
+					directoryID={this.props.directoryID}
 					addNewNotice={this.props.addNewNotice}
 					currentItem={this.props.currentItem}
 				/>

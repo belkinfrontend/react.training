@@ -19,18 +19,13 @@ class Directories extends Component {
 	}
 
 	render() {
-		const {
-			match: {
-				params: { id },
-			},
-		} = this.props;
 		return (
 			<section>
 				<AddDirectoryComponent
 					isLoading={this.props.isLoading}
 					addNewDirectory={this.props.addNewDirectory}
 					directories={this.props.directories}
-					directoryID={id}
+					directoryID={this.props.directoryID}
 					error={this.props.error}
 				/>
 				<DirectoriesComponent

@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-import { SingleNotice } from './SingleNoticeComponent';
+import { SingleNotice } from '../SingleNoticeComponent';
+import LoaderComponent from '../LoaderComponent/LoaderComponent';
+
+import styles from './NoticesComponent.module.scss';
 
 const getItemStyle = (isDragging, draggableStyle) => ({
 	// change background colour if dragging
@@ -48,11 +51,7 @@ export class NoticesComponent extends Component {
 		const { notices, deleteNotice, editNotice, isLoading } = this.props;
 
 		if (isLoading) {
-			return (
-				<div className="cssload-container">
-					<div className="cssload-whirlpool" />
-				</div>
-			);
+			return <LoaderComponent />;
 		}
 
 		if (notices.length < 1) {
@@ -64,7 +63,7 @@ export class NoticesComponent extends Component {
 				<Droppable droppableId="droppable" direction="horizontal">
 					{(provided, snapshot) => (
 						<div
-							className="noticesList"
+							className={styles.noticesList}
 							ref={provided.innerRef}
 							style={getListStyle(snapshot.isDraggingOver)}
 							{...provided.droppableProps}
@@ -87,7 +86,6 @@ export class NoticesComponent extends Component {
 												deleteNotice={deleteNotice}
 												editNotice={editNotice}
 												index={index}
-												currentItem={this.props.currentItem}
 												addNewNotice={this.props.addNewNotice}
 												directoryID={this.props.directoryID}
 											/>

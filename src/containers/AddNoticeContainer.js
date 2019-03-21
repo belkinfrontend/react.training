@@ -11,10 +11,6 @@ import ChipInput from 'material-ui-chip-input';
 import { editNotice } from '../actions/noticeActions';
 
 class AddNoticeContainer extends Component {
-	// handleAddChip = ({ values: { tags } }) => tag => {
-	// 	tags.push(tag);
-	// };
-
 	render() {
 		return (
 			<div>
@@ -34,18 +30,20 @@ class AddNoticeContainer extends Component {
 							tags: values.tags,
 						};
 						this.props.addNewNotice(notice);
-						// resetForm();
 
 						setTimeout(() => setSubmitting(false), 2 * 1000);
 					}}
 				>
 					{props => {
 						const handleAddChip = tag => {
-							props.values.tags.push(tag);
+							props.setFieldValue('tags', props.values.tags.concat([tag]));
 						};
 
-						const handleDeleteChip = (tag, index) => {
-							props.values.tags.splice(index, 1);
+						const handleDeleteChip = (oldTag, index) => {
+							props.setFieldValue(
+								'tags',
+								props.values.tags.filter(tag => tag !== oldTag)
+							);
 						};
 						return (
 							<Form>
@@ -73,6 +71,7 @@ class AddNoticeContainer extends Component {
 									fullWidth
 								/>
 								<ChipInput
+									className="tags"
 									defaultValue={props.values.tags}
 									value={props.values.tags}
 									name="tags"
@@ -80,8 +79,8 @@ class AddNoticeContainer extends Component {
 									margin="normal"
 									variant="outlined"
 									fullWidth
-									onAdd={tag => handleAddChip(tag)}
-									onDelete={(tag, index) => handleDeleteChip(tag, index)}
+									onAdd={handleAddChip}
+									onDelete={handleDeleteChip}
 								/>
 
 								<Button
@@ -101,14 +100,13 @@ class AddNoticeContainer extends Component {
 									variant="contained"
 									size="medium"
 									color="primary"
+									style={{ marginLeft: '10px' }}
 								>
 									Submit
 								</Button>
 							</Form>
 						);
 					}}
-
-					{/* </form> */}
 				</Formik>
 			</div>
 		);

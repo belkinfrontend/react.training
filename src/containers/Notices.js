@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import NoticesComponent from '../components/NoticesComponent';
+import NoticesComponent from '../components/NoticesComponent/NoticesComponent';
 import AddNoticeComponent from './AddNoticeContainer';
 import Search from './Search';
 import { getSearchedNoticesSelector } from '../selectors';
@@ -36,13 +36,11 @@ class Notices extends Component {
 					deleteNotice={this.props.deleteNotice}
 					editNotice={this.props.editNotice}
 					dragNotice={this.props.dragNotice}
-					currentItem={this.props.currentItem}
 					addNewNotice={this.props.addNewNotice}
 				/>
 				<AddNoticeComponent
 					directoryID={this.props.directoryID}
 					addNewNotice={this.props.addNewNotice}
-					currentItem={this.props.currentItem}
 				/>
 			</section>
 		);
@@ -62,7 +60,6 @@ const mapStateToProps = state => ({
 	notices: getSearchedNoticesSelector(state),
 	notice: state.notices.item,
 	isLoading: state.notices.isLoading,
-	currentItem: state.notices.currentItem,
 });
 
 export default connect(

@@ -1,0 +1,16 @@
+.directoriesList {
+    text-align: left;
+    margin-left: 15px;
+  }
+  
+.directoryLinks {
+	margin-left: -65px !important;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	align-items: center;
+
+	&:hover {
+		background: #eee;
+	}
+}

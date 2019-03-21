@@ -14,8 +14,8 @@ import {
 const initialState = {
 	items: [],
 	item: {},
-	// currentItem: {},
 	searchQuery: '',
+	isShallowSearch: false,
 	isLoading: false,
 };
 
@@ -75,7 +75,11 @@ export function noticeReducer(state = initialState, action) {
 			};
 
 		case SEARCH_QUERY_CHANGED:
-			return { ...state, searchQuery: action.payload };
+			return {
+				...state,
+				searchQuery: action.payload.query,
+				isShallowSearch: action.payload.isShallowSearch,
+			};
 
 		case CHANGE_NOTICE_POSITION_SUCCEED:
 			const newNotices = reorder(

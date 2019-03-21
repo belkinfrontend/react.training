@@ -1,0 +1,14 @@
+.noticesList {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+  }
+  
+  .noticeItem {
+      max-width: 200px;
+      margin: 10px;
+  
+      &:hover {
+          background: #eee;
+      }
+  }

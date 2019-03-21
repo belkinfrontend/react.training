@@ -111,11 +111,11 @@ export function editNotice(noticeData, id) {
 
 //================ getSearchedNotices
 
-export function getSearchedNotices(query) {
+export function getSearchedNotices({ query, isShallowSearch }) {
 	return dispatch => {
 		dispatch({
 			type: SEARCH_QUERY_CHANGED,
-			payload: query,
+			payload: { query, isShallowSearch },
 		});
 	};
 }

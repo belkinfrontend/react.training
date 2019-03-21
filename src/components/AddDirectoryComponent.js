@@ -40,7 +40,7 @@ class AddDirectoryComponent extends Component {
 	render() {
 		return (
 			<div>
-				<h3>Add Directories</h3>
+				<h3 style={{ marginBottom: '55px' }}>Add Directories</h3>
 				<form onSubmit={this.onSubmit}>
 					<TextField
 						id="outlined-name"

@@ -8,7 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import Home from '@material-ui/icons/Home';
+
+import logo from '../logo.svg';
 
 const styles = {
 	root: {
@@ -38,14 +39,11 @@ function ButtonAppBar(props) {
 					</IconButton>
 
 					<NavLink to={'/directory/1'}>
-						<IconButton variant="contained">
-							<Home />
-						</IconButton>
+						<img src={logo} alt="logo" style={{ maxWidth: '90px' }} />
 					</NavLink>
 
-					<Typography variant="h6" color="inherit" className={classes.grow}>
-						Notes App
-					</Typography>
+					<Typography variant="h6" color="inherit" className={classes.grow} />
+					{/* <img src={logo} alt="logo" style={{ maxWidth: '50px' }} /> */}
 					<Button color="inherit">User</Button>
 				</Toolbar>
 			</AppBar>

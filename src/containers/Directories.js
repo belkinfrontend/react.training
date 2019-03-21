@@ -10,7 +10,7 @@ import {
 import { getUnflattenTree } from '../selectors';
 
 import AddDirectoryComponent from '../components/AddDirectoryComponent';
-import DirectoriesComponent from '../components/DirectoriesComponent';
+import DirectoriesComponent from '../components/DirectoriesComponent/DirectoriesComponent';
 
 class Directories extends Component {
 	constructor(props) {

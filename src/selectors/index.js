@@ -4,13 +4,6 @@ export const getDirectoriesSelector = state => {
 	return state.direcrories.items;
 };
 
-// export const getUnflattenTree = createSelector(
-// 	[getDirectoriesSelector],
-// 	(direcrories, id) => {
-// 		return direcrories.filter(notice => notice.directoryId === id);
-// 	}
-// );
-
 export function getUnflattenTree(directories) {
 	let tree = [],
 		mappedArr = {},
@@ -42,14 +35,17 @@ export function getUnflattenTree(directories) {
 
 const getNotices = state => state.notices.items;
 const getSearchQuery = state => state.notices.searchQuery;
+const isShallowSearch = state => state.notices.isShallowSearch;
 
 export const getSearchedNoticesSelector = createSelector(
-	[getNotices, getSearchQuery],
-	(notices, searchQuery) => {
-		return notices.filter(
-			notice =>
-				notice.title.includes(searchQuery) ||
-				notice.tags.some(tag => tag.includes(searchQuery))
+	[getNotices, getSearchQuery, isShallowSearch],
+	(notices, searchQuery, isShallowSearch) => {
+		return notices.filter(notice =>
+			isShallowSearch
+				? notice.title.includes(searchQuery)
+				: notice.title.includes(searchQuery) ||
+				  notice.description.includes(searchQuery) ||
+				  notice.tags.some(tag => tag.includes(searchQuery))
 		);
 	}
 );

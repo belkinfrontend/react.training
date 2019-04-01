@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import history from '../../history';
 
-import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -18,13 +17,16 @@ export class DirectoriesComponent extends Component {
 				<ul key={id}>
 					{id === 1 ? null : (
 						<li className={styles.directoryLinks}>
-							<Link to={`/directory/${id}`}>
-								<ListItemText primary={name} />
-							</Link>
+							<span
+								style={{ width: '65%', cursor: 'pointer', padding: '10px 0 10px 10px' }}
+								onClick={() => {
+									history.push(`/directory/${id}`);
+								}}
+							>
+								{name}
+							</span>
 							<Tooltip title="Delete">
 								<Button
-									component={Link}
-									to="/directory/1"
 									onClick={() => {
 										this.props.deleteDirectory(id);
 										history.push('/directory/1');

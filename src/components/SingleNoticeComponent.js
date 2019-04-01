@@ -19,6 +19,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import ChipInput from 'material-ui-chip-input';
 import { Formik, Form } from 'formik';
 
+import styles from './NoticesComponent/NoticesComponent.module.scss';
+
 export class SingleNotice extends Component {
 	state = {
 		open: false,
@@ -41,7 +43,7 @@ export class SingleNotice extends Component {
 	render() {
 		const { title, description, id } = this.props.notice;
 		return (
-			<Card className="noticeItem">
+			<Card className={styles.noticeItem}>
 				<Icon style={{ fontSize: 100 }} color="action">
 					note
 				</Icon>
@@ -117,12 +119,9 @@ export class SingleNotice extends Component {
 												fullWidth
 											/>
 											<ChipInput
-												// defaultValue={props.values.tags}
 												className="tags"
 												value={props.values.tags}
-												// defaultValue={['foo', 'bar']}
 												name="tags"
-												// onChange={tag => props.values.tags.push(...tag)}
 												label="Tags"
 												margin="normal"
 												variant="outlined"
@@ -154,8 +153,6 @@ export class SingleNotice extends Component {
 										</Form>
 									);
 								}}
-
-								{/* </form> */}
 							</Formik>
 						</DialogContent>
 						<DialogActions>

@@ -8,7 +8,12 @@ import SearchComponent from '../components/SearchComponent';
 
 export class Search extends Component {
 	render() {
-		return <SearchComponent getSearchedNotices={this.props.getSearchedNotices} />;
+		return (
+			<SearchComponent
+				getSearchedNotices={this.props.getSearchedNotices}
+				notices={this.props.notices}
+			/>
+		);
 	}
 }
 
@@ -19,6 +24,7 @@ Search.propTypes = {
 
 const mapStateToProps = state => ({
 	// notices: getSearchedNoticesSelector(state),
+	notices: state.notices.items,
 });
 
 export default connect(
